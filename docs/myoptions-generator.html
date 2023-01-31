@@ -621,10 +621,10 @@
         <hr style="margin: 10px 40px 20px 40px;" />
         <div class="evenly">
           <label class="dsplabel"><input type="checkbox" class="checkbox rbox plus-nextion" name="dspbox" id="r33" /><span class="checkmark box"></span>+ NEXTION</label>
-          <label class="dsplabel hidden" id="dsp-rotate" title="Optional 90 degree rotation for square displays"><input type="checkbox" class="checkbox rbox rotate90" id="r34" name="dspbox" /><span class="checkmark box"></span>ROTATE 90&#176;</label>
-          <label class="dsplabel hidden" id="dsp-invert" title="Invert title colors for OLED displays"><input type="checkbox" class="checkbox rbox invert-title" id="r35" name="dspbox" /><span class="checkmark box"></span>INVERT TITLE</label>
+          <label class="dsplabel hidden" id="dsp-rotate" title="Optional 90 degree rotation for square displays"><input type="checkbox" class="checkbox rbox rotate90" id="r34" name="dspbox" /><span class="checkmark box"></span>ПОВЕРНУТЬ на 90 ГРАДУСОВ&#176;</label>
+          <label class="dsplabel hidden" id="dsp-invert" title="Invert title colors for OLED displays"><input type="checkbox" class="checkbox rbox invert-title" id="r35" name="dspbox" /><span class="checkmark box"></span>ИНВЕРТИРОВАТЬ</label>
         </div>
-        <div class="description"><a href="https://github.com/e2002/yoradio/wiki/Available-display-models" target="_blank">Available display models</a></div>
+        <div class="description"><a href="https://github.com/e2002/yoradio/wiki/Available-display-models" target="_blank">Доступные дисплеи</a></div>
       </section>
       <section id="display-pins" class="hidden">
         <div class="title"><span>display pins</span></div>
@@ -632,11 +632,11 @@
           <div id="pins-7735" class="hidden">
             <h3 class="subtitle">ST7735 display type</h3>
             <div class="evenly forexport" data-define="DTYPE" data-export="RADIO">
-              <label class="dsplabel" title="1.8' display. If the display is cut off or has extra 'random' pixels on the top & left, try the other option!"><input type="radio" id="r36" class="radio dspradio rbox initr-blacktab" name="initrradio" data-type="default" checked /><span class="checkmark"></span>BLACKTAB</label>
-              <label class="dsplabel" title="1.8' display. If the display is cut off or has extra 'random' pixels on the top & left, try the other option!"><input type="radio" class="radio dspradio rbox" id="r37" name="initrradio" data-type="INITR_GREENTAB" /><span class="checkmark"></span>GREENTAB</label>
-              <label class="dsplabel" title="1.8' display. If the display is cut off or has extra 'random' pixels on the top & left, try the other option!"><input type="radio" class="radio dspradio rbox" id="r38" name="initrradio" data-type="INITR_REDTAB" /><span class="checkmark"></span>REDTAB</label>
-              <label class="dsplabel" title="1.44' display."><input type="radio" class="radio dspradio rbox" id="r39" name="initrradio" data-rotate="true" data-type="INITR_144GREENTAB" /><span class="checkmark"></span>144GREENTAB</label>
-              <label class="dsplabel" title="0.96' display."><input type="radio" class="radio dspradio rbox" id="r40" name="initrradio" data-type="INITR_MINI160x80" /><span class="checkmark"></span>MINI160x80</label>
+              <label class="dsplabel" title="1.8' дисплей. Если изображение обрезано или имеет странные пиксели сверху и слева, попроюуйте другой вариант."><input type="radio" id="r36" class="radio dspradio rbox initr-blacktab" name="initrradio" data-type="default" checked /><span class="checkmark"></span>BLACKTAB</label>
+              <label class="dsplabel" title="1.8' дисплей. Если изображение обрезано или имеет странные пиксели сверху и слева, попроюуйте другой вариант."><input type="radio" class="radio dspradio rbox" id="r37" name="initrradio" data-type="INITR_GREENTAB" /><span class="checkmark"></span>GREENTAB</label>
+              <label class="dsplabel" title="1.8' дисплей. Если изображение обрезано или имеет странные пиксели сверху и слева, попроюуйте другой вариант."><input type="radio" class="radio dspradio rbox" id="r38" name="initrradio" data-type="INITR_REDTAB" /><span class="checkmark"></span>REDTAB</label>
+              <label class="dsplabel" title="1.44' дисплей."><input type="radio" class="radio dspradio rbox" id="r39" name="initrradio" data-rotate="true" data-type="INITR_144GREENTAB" /><span class="checkmark"></span>144GREENTAB</label>
+              <label class="dsplabel" title="0.96' дисплей."><input type="radio" class="radio dspradio rbox" id="r40" name="initrradio" data-type="INITR_MINI160x80" /><span class="checkmark"></span>MINI160x80</label>
             </div>
             <hr />
           </div>
@@ -671,7 +671,7 @@
         </div>
       </section>
       <section id="nextion" class="hidden">
-        <div class="title"><span>nextion pins</span></div>
+        <div class="title"><span>пины nextion</span></div>
         <div id="pins-nextion" class="displays-pins forexport" data-export="PINS">
           <div class="inputwrap"><span class="inputtitle">RX</span><input type="text" class="textinput" id="i13" data-define="NEXTION_RX" data-color="white" value="" maxlength="3"></div>
           <div class="inputwrap"><span class="inputtitle">TX</span><input type="text" class="textinput" id="i14" data-define="NEXTION_TX" data-color="white" value="" maxlength="3"></div>
@@ -681,16 +681,16 @@
     <!-- AUDIO -->
     <hr class="double" />
     <section id="audio">
-      <div class="title"><span>audio</span></div>
+      <div class="title"><span>аудио</span></div>
       <div class="scontent scontent-audio forexport" id="scontent-audio" data-export="AUDIO">
-        <label class="dsplabel"><input type="radio" class="radio rbox" id="r43" name="audioradio" data-target="i2s" checked /><span class="checkmark"></span>I2S EXTERNAL</label>
+        <label class="dsplabel"><input type="radio" class="radio rbox" id="r43" name="audioradio" data-target="i2s" checked /><span class="checkmark"></span>вшешний I2S</label>
         <label class="dsplabel"><input type="radio" class="radio rbox vs1053" id="r44" name="audioradio" data-target="vs"  /><span class="checkmark"></span>VS1053</label>
-        <label class="dsplabel"><input type="radio" class="radio rbox i2s-internal" id="r45" name="audioradio" data-target="int"  /><span class="checkmark"></span>INTERNAL</label>
-        <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-setup rbox force-mono" id="r46" data-target="PLAYER_FORCE_MONO"/><span class="checkmark box"></span>MONO</label>
+        <label class="dsplabel"><input type="radio" class="radio rbox i2s-internal" id="r45" name="audioradio" data-target="int"  /><span class="checkmark"></span>Встроенный DAC</label>
+        <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-setup rbox force-mono" id="r46" data-target="PLAYER_FORCE_MONO"/><span class="checkmark box"></span>МОНО</label>
       </div>
     </section>
     <section id="audio-pins">
-      <div class="title"><span>audio pins</span></div>
+      <div class="title"><span>Пины аудио-модулей</span></div>
       <div class="scontent scontent-audio-pins">
         <div id="audio-pins-i2s" class="audio-pins forexport" data-export="PINS">
           <div class="inputwrap"><span class="inputtitle">DIN | DOUT</span><input type="text" class="textinput" id="i15" data-define="I2S_DOUT" data-color="orange" value="27" maxlength="3"></div>
@@ -721,38 +721,38 @@
       <section id="buttons">
         <div class="title"><span>buttons</span></div>
         <div class="scontent scontent-buttons evenly" id="scontent-buttons">
-          <label class="dsplabel"><input type="checkbox" class="checkbox rbox control-buttons" name="buttonsuse" id="r49" /><span class="checkmark box"></span>control buttons</label>
-          <label class="dsplabel hiddenradio hidden"><input type="radio" class="radio rbox" id="r50" name="buttonsnum" data-target="treebuttons" checked /><span class="checkmark"></span>THREE BUTTONS</label>
-          <label class="dsplabel hiddenradio hidden"><input type="radio" class="radio rbox five-buttons" id="r51" name="buttonsnum" data-target="fivebuttons"  /><span class="checkmark"></span>FIVE BUTTONS</label>
-          <label class="dsplabel"><input type="checkbox" class="checkbox rbox mode-button" name="buttonmode" id="r52" /><span class="checkmark box"></span>MODE BUTTON</label>
+          <label class="dsplabel"><input type="checkbox" class="checkbox rbox control-buttons" name="buttonsuse" id="r49" /><span class="checkmark box"></span>кнопки управления</label>
+          <label class="dsplabel hiddenradio hidden"><input type="radio" class="radio rbox" id="r50" name="buttonsnum" data-target="treebuttons" checked /><span class="checkmark"></span>ТРИ КНОПКИ</label>
+          <label class="dsplabel hiddenradio hidden"><input type="radio" class="radio rbox five-buttons" id="r51" name="buttonsnum" data-target="fivebuttons"  /><span class="checkmark"></span>ПЯТЬ КНОПОК</label>
+          <label class="dsplabel"><input type="checkbox" class="checkbox rbox mode-button" name="buttonmode" id="r52" /><span class="checkmark box"></span>Кнопка режима</label>
         </div>
       </section>
       <section id="buttons-pins" class="hidden">
         <div class="title"><span>buttons pins</span></div>
         <div id="pins-buttons" class="buttons-pins evenly forexport" data-export="PINS">
-          <div class="inputwrap threebuttons pinbuttons hidden"><span class="inputtitle">PREV</span><input type="text" class="textinput" id="i22" data-define="BTN_LEFT" data-color="purple" value="" maxlength="3"></div>
-          <div class="inputwrap threebuttons pinbuttons hidden"><span class="inputtitle">PLAY</span><input type="text" class="textinput" id="i23" data-define="BTN_CENTER" data-color="purple" value="" maxlength="3"></div>
-          <div class="inputwrap threebuttons pinbuttons hidden"><span class="inputtitle">NEXT</span><input type="text" class="textinput" id="i24" data-define="BTN_RIGHT" data-color="purple" value="" maxlength="3"></div>
-          <div class="inputwrap fivebuttons pinbuttons hidden"><span class="inputtitle">UP</span><input type="text" class="textinput" id="i25" data-define="BTN_UP" data-color="purple" value="" maxlength="3"></div>
-          <div class="inputwrap fivebuttons pinbuttons hidden"><span class="inputtitle">DOWN</span><input type="text" class="textinput" id="i26" data-define="BTN_DOWN" data-color="purple" value="" maxlength="3"></div>
-          <div class="inputwrap hidden" id="modebutton"><span class="inputtitle">MODE</span><input type="text" class="textinput" id="i27" data-define="BTN_MODE" data-color="purple" value="" maxlength="3"></div>
+          <div class="inputwrap threebuttons pinbuttons hidden"><span class="inputtitle">ПРЕД.</span><input type="text" class="textinput" id="i22" data-define="BTN_LEFT" data-color="purple" value="" maxlength="3"></div>
+          <div class="inputwrap threebuttons pinbuttons hidden"><span class="inputtitle">ПЛЕЙ</span><input type="text" class="textinput" id="i23" data-define="BTN_CENTER" data-color="purple" value="" maxlength="3"></div>
+          <div class="inputwrap threebuttons pinbuttons hidden"><span class="inputtitle">СЛЕД</span><input type="text" class="textinput" id="i24" data-define="BTN_RIGHT" data-color="purple" value="" maxlength="3"></div>
+          <div class="inputwrap fivebuttons pinbuttons hidden"><span class="inputtitle">ВВЕРЖ</span><input type="text" class="textinput" id="i25" data-define="BTN_UP" data-color="purple" value="" maxlength="3"></div>
+          <div class="inputwrap fivebuttons pinbuttons hidden"><span class="inputtitle">ВНИЗ</span><input type="text" class="textinput" id="i26" data-define="BTN_DOWN" data-color="purple" value="" maxlength="3"></div>
+          <div class="inputwrap hidden" id="modebutton"><span class="inputtitle">РЕЖИМ</span><input type="text" class="textinput" id="i27" data-define="BTN_MODE" data-color="purple" value="" maxlength="3"></div>
         </div>
         <hr />
-        <div class="evenly"><label class="dsplabel"><input type="checkbox" class="checkbox rbox buttonspullup" name="buttonpullup" id="r53" checked /><span class="checkmark box"></span>INTERNAL PULLUP</label></div>
+        <div class="evenly"><label class="dsplabel"><input type="checkbox" class="checkbox rbox buttonspullup" name="buttonpullup" id="r53" checked /><span class="checkmark box"></span>ВНУТРЕННИЕ ПОДТЯЖКИ</label></div>
       </section>
     </div><!-- BUTTONS -->
     <!-- ENCODERS -->
     <div id="setup-encoders" class="hidden">
       <hr class="double" />
       <section id="encoders">
-        <div class="title"><span>encoders</span></div>
+        <div class="title"><span>ЭНКОДЕРЫ</span></div>
         <div class="scontent scontent-encoders evenly" id="scontent-encoders">
-          <label class="dsplabel"><input type="checkbox" class="checkbox encodercheckbox rbox encoder-box1" name="encoder1" id="r54" /><span class="checkmark box"></span>ENCODER #1</label>
-          <label class="dsplabel"><input type="checkbox" class="checkbox encodercheckbox rbox encoder-box2" name="encoder2" id="r55" /><span class="checkmark box"></span>ENCODER #2</label>
+          <label class="dsplabel"><input type="checkbox" class="checkbox encodercheckbox rbox encoder-box1" name="encoder1" id="r54" /><span class="checkmark box"></span>ЭНКОДЕР #1</label>
+          <label class="dsplabel"><input type="checkbox" class="checkbox encodercheckbox rbox encoder-box2" name="encoder2" id="r55" /><span class="checkmark box"></span>ЭНКОДЕР #2</label>
         </div>
       </section>
       <section id="encoders-pins" class="hidden">
-        <div class="title"><span>encoders pins</span></div>
+        <div class="title"><span>Пины энкодеров</span></div>
         <div id="epins1" class="hidden">
           <h3 class="subtitle">Encoder #1</h3>
           <div class="evenly forexport" data-export="PINS">
@@ -761,7 +761,7 @@
             <div class="inputwrap"><span class="inputtitle">Key</span><input type="text" class="textinput" id="i30" data-define="ENC_BTNB" data-color="green" value="39" maxlength="3"></div>
           </div>
           <div class="encoder-set evenly forexport" data-export="SET">
-            <label class="dsplabel"><input type="checkbox" class="checkbox setitem rbox" name="enc1pullup" id="r56" data-default="true" data-define="ENC_INTERNALPULLUP" /><span class="checkmark box"></span>INTERNAL PULLUP</label>
+            <label class="dsplabel"><input type="checkbox" class="checkbox setitem rbox" name="enc1pullup" id="r56" data-default="true" data-define="ENC_INTERNALPULLUP" /><span class="checkmark box"></span>ВНУТРЕННИЕ ПОДТЯЖКИ</label>
             <label class="dsplabel"><input type="checkbox" class="checkbox setitem rbox" name="enc1half" id="r57" data-default="false" data-define="ENC_HALFQUARD" /><span class="checkmark box"></span>HALFQUARD</label>
           </div>
         </div>
@@ -774,7 +774,7 @@
             <div class="inputwrap"><span class="inputtitle">Key</span><input type="text" class="textinput" id="i33" data-define="ENC2_BTNB" data-color="lblue" value="32" maxlength="3"></div>
           </div>
           <div class="encoder-set evenly forexport" data-export="SET">
-            <label class="dsplabel"><input type="checkbox" class="checkbox setitem rbox" name="enc2pullup" id="r58" data-default="true" data-define="ENC2_INTERNALPULLUP" /><span class="checkmark box"></span>INTERNAL PULLUP</label>
+            <label class="dsplabel"><input type="checkbox" class="checkbox setitem rbox" name="enc2pullup" id="r58" data-default="true" data-define="ENC2_INTERNALPULLUP" /><span class="checkmark box"></span>ВНУТРЕННИЕ ПОДТЯЖКИ</label>
             <label class="dsplabel"><input type="checkbox" class="checkbox setitem rbox" name="enc2half" id="r59" data-default="false" data-define="ENC2_HALFQUARD" /><span class="checkmark box"></span>HALFQUARD</label>
           </div>
         </div>
@@ -784,7 +784,7 @@
     <div id="setup-touchscreen" class="hidden">
       <hr class="double" />
       <section id="touchscreen">
-        <div class="title"><span>touch screen</span></div>
+        <div class="title"><span>ТАЧСКРИН</span></div>
         <div class="evenly forexport" data-define="TS_MODEL" data-export="RADIO">
           <label class="dsplabel"><input type="radio" class="radio tsradio rbox" name="touchscreenmodel" id="r60" data-target="ts-res" data-type="TS_MODEL_XPT2046" checked /><span class="checkmark"></span>XPT2046</label>
           <label class="dsplabel"><input type="radio" class="radio tsradio rbox" name="touchscreenmodel" id="r61" data-target="ts-cap" data-type="TS_MODEL_GT911"  /><span class="checkmark"></span>GT911</label>
@@ -813,7 +813,7 @@
     <div id="setup-sdcard" class="hidden">
       <hr class="double" />
       <section id="sdcard">
-        <div class="title"><span>sd card</span></div>
+        <div class="title"><span>SD карта</span></div>
         <div class="sd-pins">
           <h3 class="subtitle">SD SPI BUS</h3>
           <div class="evenly forexport" data-define="SD_HSPI" data-export="RADIO">
@@ -833,11 +833,11 @@
       <section id="etc">
         <div class="title"><span>etc.</span></div>
         <div class="evenly">
-          <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-etc rbox" id="r66" data-target="etc-led"/><span class="checkmark box"></span>LED PIN</label>
-          <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-etc rbox" id="r67" data-target="etc-ir"/><span class="checkmark box"></span>IR PIN</label>
+          <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-etc rbox" id="r66" data-target="etc-led"/><span class="checkmark box"></span>СВЕТОДИОД</label>
+          <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-etc rbox" id="r67" data-target="etc-ir"/><span class="checkmark box"></span>ИК ПИН</label>
           <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-etc rbox" id="r68" data-target="etc-mute"/><span class="checkmark box"></span>MUTE PIN</label>
           <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-etc rbox" id="r69" data-target="etc-wake"/><span class="checkmark box"></span>WAKE PIN</label>
-          <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-etc rbox" id="r70" data-target="etc-light"/><span class="checkmark box"></span>LIGHT SENSOR</label>
+          <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-etc rbox" id="r70" data-target="etc-light"/><span class="checkmark box"></span>Датчик освещенности</label>
         </div>
         <hr class="simple" />
         <div class="evenly forexport" data-export="PINS">
@@ -851,11 +851,11 @@
     </div><!-- ETC -->
     <hr class="double" />
     <div id="submit" class="evenly">
-      <div class="button apply" onclick="window.scrollTo(0, 0); window.location.href = window.location.href.split('?')[0];">reset</div>
-      <div class="button apply hlbutton" onclick="doExport();">get myoptions.h</div>
-      <div class="button apply" onclick="doPreview();">preview</div>
+      <div class="button apply" onclick="window.scrollTo(0, 0); window.location.href = window.location.href.split('?')[0];">сброс</div>
+      <div class="button apply hlbutton" onclick="doExport();">получить myoptions.h</div>
+      <div class="button apply" onclick="doPreview();">предпросмотр</div>
     </div>
-    <div class="href" onclick="getLink();">>> link to this configuration <<</div>
+    <div class="href" onclick="getLink();">>> ссылка на данную конфигурацию <<</div>
     <div id="footer"></div>
     <button onclick="topFunction()" id="topbtn" class="scrollbutton">&#8593;</button>
     <button onclick="bottomFunction()" id="bottombtn" class="scrollbutton">&#8595;</button>
@@ -1210,7 +1210,7 @@
     document.title = document.title+" - "+GVERSION;
     let ttl = document.getElementById("pagetitle");
     ttl.innerText = document.title;
-    document.getElementById("footer").innerHTML = document.title + '<br /><a href="https://github.com/e2002/yoradio/" target="_blank">project homepage</a>';
+    document.getElementById("footer").innerHTML = document.title + '<br /><a href="https://github.com/e2002/yoradio/" target="_blank">РЕПОЗИТОРИЙ ёРадио</a>';
     initCheckboxes();
     initTextInputs();
     loadConfigFromUrl();
