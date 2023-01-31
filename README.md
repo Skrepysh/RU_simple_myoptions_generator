@@ -5,9 +5,8 @@
 
 
 **myoptions.h** file generator for the [ёRadio](https://github.com/e2002/yoradio) project.
-It is a single html file that runs in a browser (chrome, firefox, opera) or online.
-After some actions with which, using the mouse and keyboard, the output is the configuration file **myoptions.h**, completely ready for use in the project.
-
+Генератор файлов myoptions.h для проекта ёRadio. Это один HTML-файл, который запускается в браузере (chrome, firefox, Opera) или онлайн. После простых действий
+при помощи мыши и клавиатуры, на выходе получается конфигурационный файл myoptions.h, полностью готовый к использованию в проекте.
 https://e2002.github.io/docs/myoptions-generator.html
 
 ---
