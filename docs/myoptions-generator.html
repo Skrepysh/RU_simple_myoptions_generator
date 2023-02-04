@@ -1,0 +1,1912 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script>
+    var GVERSION="v0.7.0";
+    var debug = false;
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=0.25">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAgVBMVEUAAADXwlPcyVjYw1PYxFTcyVjYxFTbyFfZxlXax1bcyVjax1bbyFfaxlbaxlbbyFfZxVXZxVXbx1fbyFfcyFjbx1fcyVjYxFTZxVXZxVXbx1fcyFfaxlbcyFjcyVjcyVjax1bcyVjcyVjaxlbaxlbbyFfbyFfcyVjax1bbyFfWwVJAMS6TAAAAKnRSTlMA+wv49AXsas+jFp+Cy71T496PTD+IM/Dn2ZpHxzknHbEtDsK5dVwjrF8iY+RUAAAB/UlEQVRYw+2W2ZabMBBE1QgkxA4GjPHu8TLp///ATBxsKcRIzeQhOSdz30qm6ohuqTH7R4kSpeIr0+S9UsmN7JclR0T/bT9o77wERCgSqt/Hn5Snuw7CQfOG5A8EPlD3heSp/R0l4IJPePChvUIvxJSADDX3ANSElIDQErCiBBzGAaD1hhKwwCci0E24Q2vkCh/IUWIXkAJ25aPmw/PNoEXNaBx7AcBX0ht0cA05gFAto+K168XaPDS3D709sf+Qm4yVUnG1/pS7Pi8B8A5A0Xsz7XkB+AuQzYpIAX+DJ2T7domvgIzo/8ZxgpDkX3Cc5EAZ6T5OA5JymW0Ipz+BUe1HW+hdAQIN3mrP8/YxzNhCYzzM62Gg7Dt6FTrUtLqwS2NX5BbGgXGyqe/wjppIL5tb4EdbQKn9pTnBThtiEYx3VZGniSodUNluETd64JsYP7xbAtYc3Wzsx9BNagmo/npAA39YgwslILONcqMLMIGf2D7s3Plfgj4NSu8zASFqaorB1sdix+Zz5GbDt2zMft5M7mQbGDOhzauzM0ACmhS9zBd1vchz2WQdIETOhBJHABfCBxjE1f1d52ijZ06U4xy72aCFkhAQpDiNzygcpuvA96SES4ETQM5IRHEBr+wi2zIiUZN2vun1xSpr2nkXQ8aHNPxBmsWVbNkXr/kONfy904/qMY8AAAAASUVORK5CYII=">
+  <title>ёRadio - simple myoptions.h generator</title>
+  <style>
+    html, body {margin: 0; padding: 0; height: 100%; }
+    body {
+      background-color: #000;
+      color: #ccc;
+      font-family: Times, "Times New Roman", serif;
+      font-size: 16px;
+    }
+    a { color: #e3d25f; text-decoration: none; font-weight: bold }
+    a:hover { text-decoration: underline }
+    h1 {
+      line-height: 48px;
+      margin: 0 auto;
+      padding: 0 0 20px 0;
+      font-weight: bold;
+      font-size: 26px;
+      color: #e3d25f;
+      text-align: center;
+    }
+    #slogan {
+      margin: -26px 0 36px 0;
+      color: #777;
+      font-weight: normal;
+      text-align: center;
+      font-size: 16px;
+    }
+    #content {
+      width: 100%;
+      max-width: 1000px;
+      min-width: 670px;
+      padding: 20px 60px;
+      box-sizing: border-box;
+      margin: 0 auto;
+      position: relative;
+    }
+    #topbtn, .scrollbutton {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      top: 0;
+      z-index: 99;
+      font-size: 24px;
+      font-weight: bold;
+      border: none;
+      outline: none;
+      background-color: transparent;
+      color: #555;
+      cursor: pointer;
+      padding: 20px;
+    }
+    #topbtn:hover, .scrollbutton:hover {
+      background-color: rgba(50,50,50,0.1);
+      color: #e3d25f;
+    }
+    #bottombtn {
+      left: auto;
+      right: 0;
+    }
+    .hidden {
+	    display: none!important;
+    }
+    .subtitle {
+      margin: -10px 0 10px 0;
+      text-align: center;
+      color: #666;
+      font-size: 16px;
+      text-transform: uppercase;
+    }
+    hr, #footer {
+      border: 0;
+      border-top: #444 1px solid;
+      background: transparent;
+      margin: 20px 30px 40px 30px;
+      border-top-style: dotted;
+    }
+    hr.double {
+      border-width: 3px;
+    }
+    hr.simple {
+      border: 0;
+      border-top: #444 1px solid;
+      background: transparent;
+      border-top-style: dotted;
+      margin: 10px 30px 10px 30px;
+    }
+    .description {
+      text-align: center;
+      margin: 10px 40px 0 40px;
+      border-top: #444 1px solid;
+      padding-top: 10px;
+    }
+    .href {
+      color: #e3d25f;
+      text-align: center;
+      font-weight: bold;
+      font-size: 20px;
+      cursor: pointer;
+      margin: 30px 0 -20px 0;
+    }
+    .href:hover{
+      text-decoration: underline;
+    }
+    #alert {
+      width: 600px;
+      box-sizing: border-box;
+      margin: 0px -300px 0 0;
+      padding: 20px;
+      position: fixed;
+      right: 50%;
+      z-index: 99;
+      border: #e3d25f 3px solid;
+      background-color: #beb051;
+      color: #000;
+      border-radius: 10px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    #alert.info {
+      border-color: #76db5b;
+      background-color: #62b74b;
+      color: #23431a;
+    }
+    #alert.warning {
+      border-color: #e3aa5f;
+      background-color: #c59453;
+      color: #43341a;
+    }
+    #alert.error {
+      border-color: #e35f5f;
+      background-color: #ca5555;
+      color: #431a1a;
+    }
+    section {
+      border: #333 1px solid;
+      border-radius: 10px;
+      box-sizing: border-box;
+      padding: 20px 20px 20px 20px;
+      margin-top: 10px;
+      width: 100%;
+      margin-bottom: 30px;
+      background-image: linear-gradient(#000, #0b0b0b);
+      position: relative;
+    }
+    section .title, #preview-pins-unused .title {
+      width: auto;
+      margin-top: -34px;
+      padding: 4px 0 20px 0;
+      text-align: center;
+    }
+    section .title span, #preview-pins-unused .title span {
+      padding: 4px 8px;
+      background: #000;
+      font-weight: bold;
+      font-size: 18px;
+      text-transform: uppercase;
+    }
+    section .help {
+      position: absolute;
+      background-color: #000;
+      background-position: center center;
+      background-repeat: no-repeat;
+      border: #555 2px solid;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      right: 12px;
+      top: -16px;
+      cursor: pointer;
+      line-height: 24px;
+      color: #555;
+      font-weight: bold;
+      text-align: center;
+      font-size: 18px;
+    }
+    section .help:hover {
+      background-color: #555;
+      color: #000;
+    }
+    section .help:active {
+      top: -15px;
+    }
+    #info-content {
+      display: flex;
+    }
+    #info-content ul {
+      flex: 1;
+      color: #aaa;
+    }
+    #info-content ul li {
+      margin-bottom: 8px;
+    }
+    .scontent-displays {
+      display: grid;
+      grid-template-columns: 20% 20% 20% 20% 20%;
+    }
+    .scontent-audio, #audio-pins-spi, #audio-pins-i2s, #audio-spi-mode, #display-spi-mode {
+      display: flex;
+      justify-content: space-evenly;
+    }
+    .radio, .checkbox {
+      position: absolute;
+      cursor: pointer;
+      opacity: 0;
+      z-index: 5;
+      width: 100%;
+      margin: 0 0 0 -40px;
+      height: 29px;
+    }
+    .dsplabel {
+      position: relative;
+      display: inline-block;
+      padding-left: 32px;
+      margin: 0 10px 12px 10px;
+      font-size: 16px;
+      line-height: 25px;
+      text-transform: uppercase;
+      color: #aaa;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    .dsplabel:has(> input:checked) {
+      color: #fff;
+      font-weight: bold;
+    }
+    .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 20px;
+      width: 20px;
+      background-color: #272727;
+      border-radius: 50%;
+      border: #777 2px solid;
+    }
+    .checkmark:after {
+      display: block;
+      top: 5px;
+      left: 5px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #e3d25f;
+    }
+    .checkmark.box, .checkmark.box:after {
+      border-radius: 0%;
+    }
+    .dsplabel:hover input ~ .checkmark {
+      background-color: #272727;
+    }
+    .dsplabel input:checked ~ .checkmark {
+      background-color: #272727;
+      border: #e3d25f 2px solid;
+    }
+    .dsplabel input:checked ~ .checkmark:after {
+      display: block;
+    }
+    .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+    .inputwrap {
+      flex: 1;
+      position: relative;
+      padding-top: 20px;
+      max-width: 140px;
+    }
+    .inputtitle {
+      display: inline-block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      padding-left: 4px;
+      color: #b7b7b7;
+      text-transform: uppercase;
+    }
+    .textinput {
+      width: 97%;
+      max-width: 140px;
+      box-sizing: border-box;
+      background: #272727;
+      color: #e3d25f;
+      padding: 6px 12px;
+      font-size: 20px;
+      border: #777 3px solid;
+      font-weight: normal;
+      box-sizing: border-box;
+      margin-top: 4px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .textinput::selection {  background: #aaa; color: #000; }
+    #pins-lcd .textinput, #pins-lcd .inputwrap,
+    #pins-buttons .textinput, #pins-buttons .inputwrap {
+      max-width: 100px;
+    }
+    .textinput:focus {
+      outline: none;
+      border-color: #e3d25f;
+      background: #474747;
+    }
+    .textinput.error{
+      border-color: red;
+      background: #381212;
+      color: red;
+    }
+    .inputwrap:after{
+      color: #f00;
+      font-size: 14px;
+      padding: 4px 6px;
+    }
+    .inputwrap:has(> .conflict):after{
+      content: "conflict";
+    }
+    .inputwrap:has(> .invalid):after{
+      content: "out of range";
+    }
+    .inputwrap:has(> .vspi):after{
+      content: "used in VSPI";
+    }
+    .inputwrap:has(> .hspi):after{
+      content: "used in HSPI";
+    }
+    .inputwrap:has(> .wrover):after{
+      content: "used in WROVER";
+    }
+    .inputwrap:has(> .textinput:focus) .inputtitle {
+      color: #fff;
+      font-weight: bold;
+    }
+    .inputwrap:has(> .textinput:focus):after {
+      content: "";
+    }
+    #pins-i2c, #pins-lcd, #display-pins-spi, #pins-nextion, .evenly {
+      display: flex;
+      justify-content: space-evenly;
+    }
+    #submit {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .button {
+      padding: 8px 22px;
+      font-size: 18px;
+      border: #e3d25f 2px solid;
+      font-weight: normal;
+      box-sizing: border-box;
+      border-radius: 20px;
+      cursor: pointer;
+      text-align: center;
+      min-width: 140px;
+      margin-left: 0px;
+      text-transform: uppercase;
+      color: #e3d25f;
+      background: #272727;
+    }
+    .button:hover {
+      background: #e3d25f;
+      color: #000;
+      text-decoration: none;
+    }
+    .button:active {
+      position: relative;
+      top: 2px;
+    }
+    .hlbutton {
+      background: #e3d25f;
+      color: #000;
+    }
+    .button#docopy {
+      min-width: 41px;
+    }
+    .encoder-set {
+      margin-top: 30px;
+    }
+    #footer {
+      text-align: center;
+      padding: 40px 0 20px 0;
+      color: #aaa;
+      margin: 60px 0 0 0;
+      border-width: 2px;
+      line-height: 26px;
+    }
+    #preview {
+      height: 680px;
+      width: auto;
+      min-width: 1100px;
+      border: #e3d25f 3px solid;
+      position: fixed;
+      z-index: 100;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 16px;
+      box-shadow: 0 15px 15px #000;
+      background: #000;
+      padding-left: 230px;
+    }
+    #preview .button {
+      position: absolute;
+      top: auto;
+      right: 20px;
+      bottom: 20px;
+      z-index: 101;
+    }
+    #preview .button:active {
+      bottom: 18px;
+    }
+    #preview-pins {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+    #preview-pins ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+    #preview-pins ul li {
+      padding: 0 6px;
+      height: 27.5px;
+      line-height: 27.5px;
+      display: flex;
+      align-items: center;
+    }
+    #preview-pins-left ul li {
+      justify-content: flex-end;
+    }
+    #preview-pins-right ul li {
+      justify-content: flex-start;
+    }
+    #preview-pins-center {
+      width: 306px;
+      height: 600px;
+      background: #000 url(esp32dev.png) center center no-repeat;
+    }
+    #preview-pins-left, #preview-pins-right {
+    }
+    #preview-pins-left .preview-pin-dis {
+      text-align: right;
+    }
+    #preview-pins-right .preview-pin-dis {
+      text-align: left;
+    }
+    .preview-pin {
+      min-width: 80px;
+      box-sizing: border-box;
+      border: #fff 2px solid;
+      border-radius: 4px;
+      line-height: 20px;
+      text-align: center;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 15px;
+      margin: 0 2px;
+      padding: 0 8px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    .preview-pin-pwr { border-color: #f00; background: rgba(255,0,0,0.7); color: #000; }
+    .preview-pin-gnd { border-color: #313131; background: #313131; color: #b5b5b5; }
+    .preview-pin-dis { border-color: #000; background: #000; color: #F00; padding: 0;}
+    .preview-white   { border-color: #9f9f9f; background: #7f7f7f; color: #000; }
+    .preview-purple  { border-color: #9445ab; background: #763788; color: #000; }
+    .preview-green   { border-color: #4cab45; background: #3c8837; color: #000; }
+    .preview-blue    { border-color: #1981bd; background: #316888; color: #000; }
+    .preview-lblue   { border-color: #9ec7ed; background: #7e9fbd; color: #000; }
+    .preview-orange  { border-color: #ff9000; background: #cd7400; color: #000; }
+    .preview-yellow  { border-color: #e3d25f; background: #b5a84c; color: #000; }
+    .preview-bgreen  { border-color: #4ab3ac; background: #3b8f89; color: #000; }
+    .preview-pink    { border-color: #de1670; background: #b11159; color: #000; }
+    #preview-pins li .preview-pin {
+      cursor: not-allowed;
+    }
+    #preview-pins li.movable .preview-pin, #preview-pins-unused .preview-pin {
+      padding-left: 16px;
+      background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAOAQMAAADZk5RYAAAABlBMVEUAAAD///+l2Z/dAAAAAnRSTlMAP8D14AUAAAAMSURBVAjXY5iEGwIAb+QH/Z/KV8wAAAAASUVORK5CYII=');
+      background-position: 4px center;
+      background-repeat: no-repeat;
+      cursor: move;
+    }
+    #preview-pins-unused {
+      position:absolute;
+      z-index: 102;
+      height:auto;
+      bottom:0;
+      top:0;
+      left:0;
+      padding: 20px 10px;
+      margin: 30px 0 30px 20px;
+      box-sizing: border-box;
+      border: #777 1px dashed;
+      border-radius: 10px;
+      opacity: 0.8;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      background-image: linear-gradient(#000, #0b0b0b);
+    }
+    #preview-pins-unused .title {
+      width: 100%;
+    }
+    #preview-pins-unused .preview-pin {
+      margin-bottom: 8px;
+    }
+    #helpwrapper {
+      position: fixed;
+      top: 0; right: 0; bottom: 0; left: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 105;
+      display: flex;
+      align-items: center;
+    }
+    #helpborder {
+      max-width: 960px;
+      margin: 40px auto;
+      padding: 20px 30px;
+      border: #333 3px solid;
+      border-radius: 16px;
+      box-sizing: border-box;
+      background-image: linear-gradient(#000, #0b0b0b);
+      display: flex;
+      flex-direction: column;
+      max-height: 80%;
+    }
+    #helptitle {
+      color: #e3d25f;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 22px;
+      text-align: center;
+      border-bottom: #444 2px dotted;
+      padding-bottom: 20px;
+    }
+    #helpcontent {
+      flex: 1;
+      padding: 20px 15px;
+      box-sizing: border-box;
+      min-height: 160px;
+      line-height: 22px;
+      overflow: auto;
+      scrollbar-color: #e3d25f #000;
+      scrollbar-width: thin;
+      overscroll-behavior: contain;
+    }
+    #helpcontent::-webkit-scrollbar {
+      width: 5px;
+      height: 8px;
+      background-color: #000;
+    }
+    #helpcontent::-webkit-scrollbar-thumb {
+      background: #e3d25f;
+    }
+    #helpcontent a {
+      font-weight: normal;
+    }
+    #helpcontent p, code {
+      margin: 0 0 5px 0;
+      padding-bottom: 10px;
+      border-bottom: #333 1px dotted;
+      display: inline-block;
+      width: 100%;
+      font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace, setif;
+      font-size: 16px;
+      color: #fff;
+    }
+    #helpcontent p.title{
+      margin: 15px 0 -10px 0;
+      padding-bottom: 0px;
+      border: 0;
+      font-weight: bold;
+    }
+    code {
+      background: #222;
+      color: #777;
+      box-sizing: border-box;
+      padding: 0px 20px;
+      margin: 0;
+      white-space: pre;
+      display: block;
+      overflow: auto;
+      margin-bottom: 10px;
+      border-left: #444 3px solid;
+      scrollbar-color: #777 #222;
+      scrollbar-width: thin;
+      overscroll-behavior: contain;
+    }
+    code::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+      background-color: #222;
+    }
+    code::-webkit-scrollbar-thumb {
+      background: #777;
+    }
+    code span {
+      color: #e3d25f;
+    }
+    #helpfooter {
+      border-top: #444 2px dotted;
+      padding-top: 20px;
+    }
+    @media screen and (max-width: 680px) {
+      #content, #preview { zoom: 0.8; }
+    }
+    @media screen and (max-width: 600px) {
+      #content, #preview { zoom: 0.7; }
+    }
+    @media screen and (max-width: 500px) {
+      #content, #preview { zoom: 0.6; }
+    }
+    @media screen and (max-width: 420px) {
+      #content, #preview { zoom: 0.5; }
+    }
+    @media screen and (max-width: 35px) {
+      #content, #preview { zoom: 0.4; }
+    }
+  </style>
+  </head>
+<body>
+  <div id="preview" class="hidden">
+    <div id="preview-pins">
+      <div id="preview-pins-unused" class="movable">
+        <div class="title"><span>LOST PINS</span></div>
+      </div>
+      <div id="preview-pins-left">
+        <ul>
+          <li id="pwr-3v3"><div class="preview-pin preview-pin-pwr preview-pin-static">3v3</div></li>
+          <li id="gpio-en" class="movable movable-rst"></li>
+          <li id="gpio-36" class="movable"></li>
+          <li id="gpio-39" class="movable"></li>
+          <li id="gpio-34" class="movable"></li>
+          <li id="gpio-35" class="movable"></li>
+          <li id="gpio-32" class="movable"></li>
+          <li id="gpio-33" class="movable"></li>
+          <li id="gpio-25" class="movable"></li>
+          <li id="gpio-26" class="movable"></li>
+          <li id="gpio-27" class="movable"></li>
+          <li id="gpio-14" class="movable movable-dynamic"></li>
+          <li id="gpio-12" class="movable movable-dynamic"></li>
+          <li id="pwr-gn1"><div class="preview-pin preview-pin-gnd preview-pin-static">GND</div></li>
+          <li id="gpio-13" class="movable movable-dynamic"></li>
+          <li id="gpio-9"><div class="preview-pin preview-pin-dis preview-pin-static">X</div></li>
+          <li id="gpio-10"><div class="preview-pin preview-pin-dis preview-pin-static">X</div></li>
+          <li id="gpio-11"><div class="preview-pin preview-pin-dis preview-pin-static">X</div></li>
+          <li id="pwr-5v"><div class="preview-pin preview-pin-pwr preview-pin-static">5v</div></li>
+        </ul>
+      </div>
+      <div id="preview-pins-center"></div>
+      <div id="preview-pins-right">
+        <ul>
+          <li id="pwr-gn2"><div class="preview-pin preview-pin-gnd preview-pin-static">GND</div></li>
+          <li id="gpio-23" class="movable movable-dynamic"></li>
+          <li id="gpio-22" class="movable"></li>
+          <li id="gpio-tx"><div class="preview-pin preview-pin-dis preview-pin-static">X</div></li>
+          <li id="gpio-rx"><div class="preview-pin preview-pin-dis preview-pin-static">X</div></li>
+          <li id="gpio-21" class="movable"></li>
+          <li id="pwr-gn3"><div class="preview-pin preview-pin-gnd preview-pin-static">GND</div></li>
+          <li id="gpio-19" class="movable movable-dynamic"></li>
+          <li id="gpio-18" class="movable movable-dynamic"></li>
+          <li id="gpio-5" class="movable"></li>
+          <li id="gpio-17" class="movable movable-dynamic"></li>
+          <li id="gpio-16" class="movable movable-dynamic"></li>
+          <li id="gpio-4" class="movable"></li>
+          <li id="gpio-0" class="movable"></li>
+          <li id="gpio-2" class="movable"></li>
+          <li id="gpio-15" class="movable"></li>
+          <li id="gpio-8"><div class="preview-pin preview-pin-dis preview-pin-static">X</div></li>
+          <li id="gpio-7"><div class="preview-pin preview-pin-dis preview-pin-static">X</div></li>
+          <li id="gpio-6"><div class="preview-pin preview-pin-dis preview-pin-static">X</div></li>
+        </ul>
+      </div>
+    </div>
+    <div class="button apply hlbutton" id="btnpreview" onclick="donePreview();">ок</div>
+  </div><!--#preview-->
+  <div id="content">
+    <div id="alert" class="hidden" onclick="dontAlert();"></div>
+    <h1 id="pagetitle">ёRadio - myoptions generator</h1>
+    <h2 id="slogan">feel difference</h2>
+    <!-- INFO -->
+    <section id="info">
+      <div class="title"><span>Важно</span></div>
+      <div id="info-content">
+        <ul>
+          <li>Не используйте 16-17 пины на модуле WROVER.</li>
+          <li>НЕ используйте внешние подтяжки 12 пина.</li>
+          <li>Пустое значение = ОШИБКА.</li>
+          <li>Пины с 34 по 39 являются входными. Они не имеют внутренних подтягивающих резисторов. Их нельзя использовать как выходы.</li>
+          <li>Подключайте пин RST на дисплее или VS к EN пину на esp32 (value&nbsp;-1).</li>
+          <li>Не используйте нулевой пин без крайней необходимости.</li>
+        </ul>
+        <ul>
+          Пожалуйста, ознакомьтесь со следующими статьями:
+	  <li><a href="https://randomnerdtutorials.com/esp32-pinout-reference-gpios/" target="_blank">https://randomnerdtutorials.com/esp32-pinout-reference-gpios/</a></li>
+          <li><a href="https://randomnerdtutorials.com/esp32-spi-communication-arduino/" target="_blank">https://randomnerdtutorials.com/esp32-spi-communication-arduino/</a></li>
+          <li><a href="https://github.com/e2002/yoradio#hardware-setup" target="_blank">https://github.com/e2002/yoradio#hardware-setup</a></li>
+          <li><a href="https://github.com/e2002/yoradio/wiki/How-to-flash" target="_blank">https://github.com/e2002/yoradio/wiki/How-to-flash</a></li>
+        </ul>
+      </div>
+    </section><!-- INFO -->
+    <!-- MODULE -->
+    <hr class="double" />
+    <section id="module">
+      <div class="title"><span>тип esp32</span></div><div class="help" data-targetid="help-module" data-title="esp32 module">?</div>
+      <div class="evenly">
+        <label class="dsplabel"><input type="radio" class="radio espmodule rbox" name="espmodule" id="r71" data-target="wroom" checked /><span class="checkmark"></span>WROOM</label>
+        <label class="dsplabel"><input type="radio" class="radio espmodule rbox" name="espmodule" id="r72" data-target="wrover" /><span class="checkmark"></span>WROVER</label>
+      </div>
+    </section><!-- MODULE -->
+    <!-- SETUP -->
+    <hr class="double" />
+    <section id="setup">
+      <div class="title"><span>мне нужно настроить</span></div><div class="help" data-targetid="help-setup" data-title="setup section">?</div>
+      <div class="scontent scontent-setup evenly" id="scontent-setup1">
+        <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-setup rbox" id="r1" data-target="setup-language"/><span class="checkmark box"></span>язык</label>
+        <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-setup rbox" id="r2" data-target="setup-display"/><span class="checkmark box"></span>ДИСПЛЕЙ</label>
+        <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-setup rbox" id="r3" data-target="setup-buttons"/><span class="checkmark box"></span>КНОПКИ</label>
+        <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-setup rbox" id="r4" data-target="setup-encoders"/><span class="checkmark box"></span>ЭНКОДЕРЫ</label>
+      </div>
+      <hr />
+      <div class="scontent scontent-setup evenly" id="scontent-setup2">
+        <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-setup rbox" id="r5" data-target="setup-touchscreen"/><span class="checkmark box"></span>ТАЧСКРИН</label>
+        <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-setup rbox" id="r6" data-target="setup-sdcard"/><span class="checkmark box"></span>SD карта</label>
+        <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-setup rbox" id="r7" data-target="setup-etc"/><span class="checkmark box"></span>ИК, Светодиод, Прочее.</label>
+      </div>
+    </section><!-- SETUP -->
+    <!-- LANGUAGE -->
+    <div id="setup-language" class="hidden">
+      <hr class="double" />
+      <section id="language">
+        <div class="title"><span>Язык</span></div><div class="help" data-targetid="help-language" data-title="language">?</div>
+        <div class="scontent scontent-language evenly forexport" id="scontent-language" data-define="L10N_LANGUAGE" data-export="RADIO">
+          <label class="dsplabel"><input type="radio" class="radio rbox" name="rlanguage" id="r8" data-type="default" checked /><span class="checkmark"></span>EN</label>
+          <label class="dsplabel"><input type="radio" class="radio rbox" name="rlanguage" id="r9" data-type="RU" /><span class="checkmark"></span>RU</label>
+        </div>
+      </section>
+    </div><!-- LANGUAGE -->
+    <!-- DISPLAY -->
+    <div id="setup-display" class="hidden">
+      <hr class="double" />
+      <section id="display">
+        <div class="title"><span>дисплей</span></div><div class="help" data-targetid="help-display" data-title="displays">?</div>
+        <div class="scontent scontent-displays forexport" id="scontent-displays" data-define="DSP_MODEL" data-export="RADIO" data-displays="true">
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox" name="dspradio" id="r10" data-target="dmy" data-type="default" checked /><span class="checkmark"></span>без дисплея</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r11" data-target="spi" data-st="ST7735" data-type="DSP_ST7735" data-libs="Adafruit ST7735 and ST7789 Library" /><span class="checkmark"></span>ST7735</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r12" data-target="i2c" data-type="DSP_SSD1306" data-libs="Adafruit SSD1306" data-invert="true"/><span class="checkmark"></span>SSD1306</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r13" data-target="spi" data-type="DSP_NOKIA5110" data-libs="Adafruit PCD8544 Nokia 5110 LCD library" /><span class="checkmark"></span>NOKIA 5110</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r14" data-target="spi" data-type="DSP_ST7789" data-libs="Adafruit ST7735 and ST7789 Library" /><span class="checkmark"></span>ST7789</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r15" data-target="i2c" data-type="DSP_SH1106" data-libs="Adafruit SH110X" data-invert="true" /><span class="checkmark"></span>SH1106</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox" name="dspradio" id="r16" data-target="i2c" data-type="DSP_1602I2C" /><span class="checkmark"></span>1602 I2C</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r17" data-target="i2c" data-type="DSP_SSD1306x32" data-libs="Adafruit SSD1306" /><span class="checkmark"></span>SSD1306x32</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r18" data-target="i2c" data-type="DSP_SSD1327" data-libs="Adafruit SSD1327" data-rotate="true" /><span class="checkmark"></span>SSD1327</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r19" data-target="spi" data-type="DSP_ILI9341" data-libs="Adafruit ILI9341" /><span class="checkmark"></span>ILI9341</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r20" data-target="spi" data-type="DSP_SSD1305" data-libs="Adafruit SSD1305" data-invert="true" /><span class="checkmark"></span>SSD1305</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r21" data-target="i2c" data-type="DSP_SH1107" data-libs="Adafruit SH110X" /><span class="checkmark"></span>SH1107</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox" name="dspradio" id="r22" data-target="lcd" data-type="DSP_1602" /><span class="checkmark"></span>LCD 1602</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r23" data-target="spi" data-type="DSP_GC9106" /><span class="checkmark"></span>GC9106</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox" name="dspradio" id="r24" data-target="i2c" data-type="DSP_2004I2C" /><span class="checkmark"></span>2004 I2C</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox" name="dspradio" id="r25" data-target="lcd" data-type="DSP_2004" /><span class="checkmark"></span>LCD 2004</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r26" data-target="i2c" data-type="DSP_SSD1305I2C" data-invert="true" /><span class="checkmark"></span>SSD1305 I2C</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r27" data-target="spi" data-type="DSP_ILI9225" /><span class="checkmark"></span>ILI9225</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r28" data-target="spi" data-type="DSP_ST7789_240" data-libs="Adafruit ST7735 and ST7789 Library" data-rotate="true" /><span class="checkmark"></span>ST7789x240</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r29" data-target="spi" data-type="DSP_ST7796" /><span class="checkmark"></span>ST7796</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r30" data-target="spi" data-type="DSP_GC9A01A" /><span class="checkmark"></span>GC9A01A</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r31" data-target="spi" data-type="DSP_ILI9488" /><span class="checkmark"></span>ILI9488</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r32" data-target="spi" data-type="DSP_ILI9486" /><span class="checkmark"></span>ILI9486</label>
+        </div>
+        <hr style="margin: 10px 40px 20px 40px;" />
+        <div class="evenly">
+          <label class="dsplabel"><input type="checkbox" class="checkbox rbox plus-nextion" name="dspbox" id="r33" /><span class="checkmark box"></span>+ NEXTION</label>
+          <label class="dsplabel hidden" id="dsp-rotate" title="Optional 90 degree rotation for square displays"><input type="checkbox" class="checkbox rbox rotate90" id="r34" name="dspbox" /><span class="checkmark box"></span>ROTATE 90&#176;</label>
+          <label class="dsplabel hidden" id="dsp-invert" title="Invert title colors for OLED displays"><input type="checkbox" class="checkbox rbox invert-title" id="r35" name="dspbox" /><span class="checkmark box"></span>INVERT TITLE</label>
+        </div>
+        <div class="description"><a href="https://github.com/e2002/yoradio/wiki/Available-display-models" target="_blank">Доступные модели дисплеев</a></div>
+      </section>
+      <section id="display-pins" class="hidden">
+        <div class="title"><span>Пины дисплея</span></div><div class="help" data-targetid="help-display-pins" data-title="display pins">?</div>
+        <div class="scontent scontent-displays-pins">
+          <div id="pins-7735" class="hidden">
+            <h3 class="subtitle">ST7735 display type</h3>
+            <div class="evenly forexport" data-define="DTYPE" data-export="RADIO">
+              <label class="dsplabel" title="1.8' display. If the display is cut off or has extra 'random' pixels on the top & left, try the other option!"><input type="radio" id="r36" class="radio dspradio rbox initr-blacktab" name="initrradio" data-type="default" checked /><span class="checkmark"></span>BLACKTAB</label>
+              <label class="dsplabel" title="1.8' display. If the display is cut off or has extra 'random' pixels on the top & left, try the other option!"><input type="radio" class="radio dspradio rbox" id="r37" name="initrradio" data-type="INITR_GREENTAB" /><span class="checkmark"></span>GREENTAB</label>
+              <label class="dsplabel" title="1.8' display. If the display is cut off or has extra 'random' pixels on the top & left, try the other option!"><input type="radio" class="radio dspradio rbox" id="r38" name="initrradio" data-type="INITR_REDTAB" /><span class="checkmark"></span>REDTAB</label>
+              <label class="dsplabel" title="1.44' display."><input type="radio" class="radio dspradio rbox" id="r39" name="initrradio" data-rotate="true" data-type="INITR_144GREENTAB" /><span class="checkmark"></span>144GREENTAB</label>
+              <label class="dsplabel" title="0.96' display."><input type="radio" class="radio dspradio rbox" id="r40" name="initrradio" data-type="INITR_MINI160x80" /><span class="checkmark"></span>MINI160x80</label>
+            </div>
+            <hr />
+          </div>
+          <div id="pins-spi" class="hidden displays-spi">
+            <div id="display-spi-mode-wrap">
+              <h3 class="subtitle">DISPLAY SPI BUS</h3>
+              <div id="display-spi-mode" class="forexport" data-define="DSP_HSPI" data-export="RADIO">
+                <label class="dsplabel"><input type="radio" class="radio rbox spitype vspi" id="r41" name="dspspitype" data-type="default" data-define="TFT_" data-color="blue" checked /><span class="checkmark"></span>VSPI (mosi-23, miso-19, sck-18)</label>
+                <label class="dsplabel"><input type="radio" class="radio rbox spitype" id="r42" name="dspspitype" data-type="true" data-define="TFT_" data-color="blue" /><span class="checkmark"></span>HSPI (mosi-13, miso-12, sck-14)</label>
+              </div>
+              <hr />
+            </div>
+            <div id="display-pins-spi" class="forexport" data-export="PINS">
+              <div class="inputwrap"><span class="inputtitle">DC</span><input type="text" class="textinput" id="i1" data-define="TFT_DC" data-color="blue" value="5" maxlength="3"></div>
+              <div class="inputwrap"><span class="inputtitle">CS</span><input type="text" class="textinput" id="i2" data-define="TFT_CS" data-color="blue" value="4" maxlength="3"></div>
+              <div class="inputwrap"><span class="inputtitle">RST</span><input type="text" class="textinput" id="i3" data-define="TFT_RST" data-color="blue" value="-1" maxlength="3"></div>
+              <div class="inputwrap"><span class="inputtitle">BACKLIGHT</span><input type="text" class="textinput" id="i4" data-define="BRIGHTNESS_PIN" data-color="blue" value="255" maxlength="3"></div>
+            </div>
+          </div>
+          <div id="pins-i2c" class="hidden displays-pins forexport" data-export="PINS">
+            <div class="inputwrap"><span class="inputtitle">SDA</span><input type="text" class="textinput" id="i5" data-define="I2C_SDA" data-color="blue" value="21" maxlength="3"></div>
+            <div class="inputwrap"><span class="inputtitle">SCL</span><input type="text" class="textinput" id="i6" data-define="I2C_SCL" data-color="blue" value="22" maxlength="3"></div>
+          </div>
+          <div id="pins-lcd" class="hidden displays-pins forexport" data-export="PINS">
+            <div class="inputwrap"><span class="inputtitle">RS</span><input type="text" class="textinput" id="i7" data-define="LCD_RS" data-color="blue" value="" maxlength="3"></div>
+            <div class="inputwrap"><span class="inputtitle">E</span><input type="text" class="textinput" id="i8" data-define="LCD_E" data-color="blue" value="" maxlength="3"></div>
+            <div class="inputwrap"><span class="inputtitle">D4</span><input type="text" class="textinput" id="i9" data-define="LCD_D4" data-color="blue" value="" maxlength="3"></div>
+            <div class="inputwrap"><span class="inputtitle">D5</span><input type="text" class="textinput" id="i10" data-define="LCD_D5" data-color="blue" value="" maxlength="3"></div>
+            <div class="inputwrap"><span class="inputtitle">D6</span><input type="text" class="textinput" id="i11" data-define="LCD_D6" data-color="blue" value="" maxlength="3"></div>
+            <div class="inputwrap"><span class="inputtitle">D7</span><input type="text" class="textinput" id="i12" data-define="LCD_D7" data-color="blue" value="" maxlength="3"></div>
+          </div>
+        </div>
+      </section>
+      <section id="nextion" class="hidden"><div class="help" data-targetid="help-nextion" data-title="nextion pins">?</div>
+        <div class="title"><span>Пины nextion</span></div>
+        <div id="pins-nextion" class="displays-pins forexport" data-export="PINS">
+          <div class="inputwrap"><span class="inputtitle">RX</span><input type="text" class="textinput" id="i13" data-define="NEXTION_RX" data-color="white" value="" maxlength="3"></div>
+          <div class="inputwrap"><span class="inputtitle">TX</span><input type="text" class="textinput" id="i14" data-define="NEXTION_TX" data-color="white" value="" maxlength="3"></div>
+        </div>
+      </section>
+    </div><!-- DISPLAY -->
+    <!-- AUDIO -->
+    <hr class="double" />
+    <section id="audio">
+      <div class="title"><span>Аудио</span></div><div class="help" data-targetid="help-audio" data-title="audio module">?</div>
+      <div class="scontent scontent-audio forexport" id="scontent-audio" data-export="AUDIO">
+        <label class="dsplabel"><input type="radio" class="radio rbox" id="r43" name="audioradio" data-target="i2s" checked /><span class="checkmark"></span>I2S внешний</label>
+        <label class="dsplabel"><input type="radio" class="radio rbox vs1053" id="r44" name="audioradio" data-target="vs"  /><span class="checkmark"></span>VS1053</label>
+        <label class="dsplabel"><input type="radio" class="radio rbox i2s-internal" id="r45" name="audioradio" data-target="int"  /><span class="checkmark"></span>встроенный DAC</label>
+        <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-setup rbox force-mono" id="r46" data-target="PLAYER_FORCE_MONO"/><span class="checkmark box"></span>МОНОbel>
+      </div>
+    </section>
+    <section id="audio-pins">
+      <div class="title"><span>Пины аудио-модулей</span></div><div class="help" data-targetid="help-audio-pins" data-title="audio module pins">?</div>
+      <div class="scontent scontent-audio-pins">
+        <div id="audio-pins-i2s" class="audio-pins forexport" data-export="PINS">
+          <div class="inputwrap"><span class="inputtitle">DIN | DOUT</span><input type="text" class="textinput" id="i15" data-define="I2S_DOUT" data-color="orange" value="27" maxlength="3"></div>
+          <div class="inputwrap"><span class="inputtitle">BCLK</span><input type="text" class="textinput" id="i16" data-define="I2S_BCLK" data-color="orange" value="26" maxlength="3"></div>
+          <div class="inputwrap"><span class="inputtitle">LRC | WSEL</span><input type="text" class="textinput" id="i17" data-define="I2S_LRC" data-color="orange" value="25" maxlength="3"></div>
+        </div>
+        <div id="audio-pins-spi-wrap" class="hidden audio-pins">
+          <div id="audio-spi-mode-wrap">
+            <h3 class="subtitle">AUDIO SPI BUS</h3>
+            <div id="audio-spi-mode" class="forexport" data-define="VS_HSPI" data-export="RADIO">
+              <label class="dsplabel"><input type="radio" class="radio rbox spitype vspi" id="r47" name="audiospitype" data-type="default" data-define="VS_" data-color="orange" checked /><span class="checkmark"></span>VSPI (mosi-23, miso-19, sck-18)</label>
+              <label class="dsplabel"><input type="radio" class="radio rbox spitype" id="r48" name="audiospitype" data-type="true" data-define="VS_" data-color="orange" /><span class="checkmark"></span>HSPI (mosi-13, miso-12, sck-14)</label>
+            </div>
+            <hr />
+          </div>
+          <div id="audio-pins-spi" class="forexport" data-export="PINS">
+            <div class="inputwrap"><span class="inputtitle">CS</span><input type="text" class="textinput" id="i18" data-define="VS1053_CS" data-color="orange" value="27" maxlength="3"></div>
+            <div class="inputwrap"><span class="inputtitle">DCS</span><input type="text" class="textinput" id="i19" data-define="VS1053_DCS" data-color="orange" value="25" maxlength="3"></div>
+            <div class="inputwrap"><span class="inputtitle">DREQ</span><input type="text" class="textinput" id="i20" data-define="VS1053_DREQ" data-color="orange" value="26" maxlength="3"></div>
+            <div class="inputwrap"><span class="inputtitle">RST</span><input type="text" class="textinput" id="i21" data-define="VS1053_RST" data-color="orange" value="-1" maxlength="3"></div>
+          </div>
+        </div>
+      </div>
+    </section><!-- AUDIO -->
+    <!-- BUTTONS -->
+    <div id="setup-buttons" class="hidden">
+      <hr class="double" />
+      <section id="buttons">
+        <div class="title"><span>КНОПКИ</span></div><div class="help" data-targetid="help-buttons" data-title="buttons">?</div>
+        <div class="scontent scontent-buttons evenly" id="scontent-buttons">
+          <label class="dsplabel"><input type="checkbox" class="checkbox rbox control-buttons libs-required" name="buttonsuse" id="r49" data-libs="OneButton" /><span class="checkmark box"></span>кнопки управления</label>
+          <label class="dsplabel hiddenradio hidden"><input type="radio" class="radio rbox" id="r50" name="buttonsnum" data-target="treebuttons" checked /><span class="checkmark"></span>ТРИ КНОПКИ</label>
+          <label class="dsplabel hiddenradio hidden"><input type="radio" class="radio rbox five-buttons" id="r51" name="buttonsnum" data-target="fivebuttons"  /><span class="checkmark"></span>ПЯТЬ КНОПОК</label>
+          <label class="dsplabel"><input type="checkbox" class="checkbox rbox mode-button libs-required" name="buttonmode" id="r52" data-libs="OneButton" /><span class="checkmark box"></span>КНОПКА РЕЖИМА</label>
+        </div>
+      </section>
+      <section id="buttons-pins" class="hidden">
+        <div class="title"><span>Пины кнопок</span></div><div class="help" data-targetid="help-buttons-pins" data-title="buttons pins">?</div>
+        <div id="pins-buttons" class="buttons-pins evenly forexport" data-export="PINS">
+          <div class="inputwrap threebuttons pinbuttons hidden"><span class="inputtitle">PREV</span><input type="text" class="textinput" id="i22" data-define="BTN_LEFT" data-color="purple" value="" maxlength="3"></div>
+          <div class="inputwrap threebuttons pinbuttons hidden"><span class="inputtitle">PLAY</span><input type="text" class="textinput" id="i23" data-define="BTN_CENTER" data-color="purple" value="" maxlength="3"></div>
+          <div class="inputwrap threebuttons pinbuttons hidden"><span class="inputtitle">NEXT</span><input type="text" class="textinput" id="i24" data-define="BTN_RIGHT" data-color="purple" value="" maxlength="3"></div>
+          <div class="inputwrap fivebuttons pinbuttons hidden"><span class="inputtitle">UP</span><input type="text" class="textinput" id="i25" data-define="BTN_UP" data-color="purple" value="" maxlength="3"></div>
+          <div class="inputwrap fivebuttons pinbuttons hidden"><span class="inputtitle">DOWN</span><input type="text" class="textinput" id="i26" data-define="BTN_DOWN" data-color="purple" value="" maxlength="3"></div>
+          <div class="inputwrap hidden" id="modebutton"><span class="inputtitle">MODE</span><input type="text" class="textinput" id="i27" data-define="BTN_MODE" data-color="purple" value="" maxlength="3"></div>
+        </div>
+        <hr />
+        <div class="evenly"><label class="dsplabel"><input type="checkbox" class="checkbox rbox buttonspullup" name="buttonpullup" id="r53" checked /><span class="checkmark box"></span>INTERNAL PULLUP</label></div>
+      </section>
+    </div><!-- BUTTONS -->
+    <!-- ENCODERS -->
+    <div id="setup-encoders" class="hidden">
+      <hr class="double" />
+      <section id="encoders">
+        <div class="title"><span>encoders</span></div><div class="help" data-targetid="help-encoders" data-title="encoders">?</div>
+        <div class="scontent scontent-encoders evenly" id="scontent-encoders">
+          <label class="dsplabel"><input type="checkbox" class="checkbox encodercheckbox rbox encoder-box1" name="encoder1" id="r54" /><span class="checkmark box"></span>ENCODER #1</label>
+          <label class="dsplabel"><input type="checkbox" class="checkbox encodercheckbox rbox encoder-box2" name="encoder2" id="r55" /><span class="checkmark box"></span>ENCODER #2</label>
+        </div>
+      </section>
+      <section id="encoders-pins" class="hidden">
+        <div class="title"><span>Пины энкодеров</span></div><div class="help" data-targetid="help-encoders-pins" data-title="encoders pins">?</div>
+        <div id="epins1" class="hidden">
+          <h3 class="subtitle">Энкодер #1</h3>
+          <div class="evenly forexport" data-export="PINS">
+            <div class="inputwrap"><span class="inputtitle">S1</span><input type="text" class="textinput" id="i28" data-define="ENC_BTNR" data-color="green" value="36" maxlength="3"></div>
+            <div class="inputwrap"><span class="inputtitle">S2</span><input type="text" class="textinput" id="i29" data-define="ENC_BTNL" data-color="green" value="34" maxlength="3"></div>
+            <div class="inputwrap"><span class="inputtitle">Key</span><input type="text" class="textinput" id="i30" data-define="ENC_BTNB" data-color="green" value="39" maxlength="3"></div>
+          </div>
+          <div class="encoder-set evenly forexport" data-export="SET">
+            <label class="dsplabel"><input type="checkbox" class="checkbox setitem rbox" name="enc1pullup" id="r56" data-default="true" data-define="ENC_INTERNALPULLUP" /><span class="checkmark box"></span>Внутренние пожтяжки</label>
+            <label class="dsplabel"><input type="checkbox" class="checkbox setitem rbox" name="enc1half" id="r57" data-default="false" data-define="ENC_HALFQUARD" /><span class="checkmark box"></span>HALFQUARD</label>
+          </div>
+        </div>
+        <hr id="ehr" class="hidden" />
+        <div id="epins2" class="hidden">
+          <h3 class="subtitle">Энкодер #2</h3>
+          <div class="evenly forexport" data-export="PINS">
+            <div class="inputwrap"><span class="inputtitle">S1</span><input type="text" class="textinput" id="i31" data-define="ENC2_BTNR" data-color="lblue" value="35" maxlength="3"></div>
+            <div class="inputwrap"><span class="inputtitle">S2</span><input type="text" class="textinput" id="i32" data-define="ENC2_BTNL" data-color="lblue" value="33" maxlength="3"></div>
+            <div class="inputwrap"><span class="inputtitle">Key</span><input type="text" class="textinput" id="i33" data-define="ENC2_BTNB" data-color="lblue" value="32" maxlength="3"></div>
+          </div>
+          <div class="encoder-set evenly forexport" data-export="SET">
+            <label class="dsplabel"><input type="checkbox" class="checkbox setitem rbox" name="enc2pullup" id="r58" data-default="true" data-define="ENC2_INTERNALPULLUP" /><span class="checkmark box"></span>Внутренние подтяжки</label>
+            <label class="dsplabel"><input type="checkbox" class="checkbox setitem rbox" name="enc2half" id="r59" data-default="false" data-define="ENC2_HALFQUARD" /><span class="checkmark box"></span>HALFQUARD</label>
+          </div>
+        </div>
+      </section>
+    </div><!-- ENCODERS -->
+    <!-- TOUCHSCREEN -->
+    <div id="setup-touchscreen" class="hidden">
+      <hr class="double" />
+      <section id="touchscreen">
+        <div class="title"><span>тачскрин</span></div><div class="help" data-targetid="help-touchscreen" data-title="touchscreen">?</div>
+        <div class="evenly forexport" data-define="TS_MODEL" data-export="RADIO">
+          <label class="dsplabel"><input type="radio" class="radio tsradio rbox touchscreen-xpt libs-required" name="touchscreenmodel" id="r60" data-target="ts-res" data-type="TS_MODEL_XPT2046" data-libs="XPT2046_Touchscreen" checked /><span class="checkmark"></span>XPT2046</label>
+          <label class="dsplabel"><input type="radio" class="radio tsradio rbox" name="touchscreenmodel" id="r61" data-target="ts-cap" data-type="TS_MODEL_GT911"  /><span class="checkmark"></span>GT911</label>
+        </div>
+        <hr />
+        <div class="ts-pins" id="ts-res">
+          <h3 class="subtitle" style="margin-top: -30px;">TS SPI BUS</h3>
+          <div class="evenly forexport" data-define="TS_HSPI" data-export="RADIO">
+            <label class="dsplabel"><input type="radio" class="radio rbox spitype vspi" id="r62" name="tsspitype" data-type="default" data-define="TS_" data-color="yellow" checked /><span class="checkmark"></span>VSPI (mosi-23, miso-19, sck-18)</label>
+            <label class="dsplabel"><input type="radio" class="radio rbox spitype" id="r63" name="tsspitype" data-type="true" data-define="TS_" data-color="yellow" /><span class="checkmark"></span>HSPI (mosi-13, miso-12, sck-14)</label>
+          </div>
+          <hr class="simple" />
+          <div class="evenly forexport" data-export="PINS">
+            <div class="inputwrap"><span class="inputtitle">CS</span><input type="text" class="textinput" id="i34" data-define="TS_CS" data-color="yellow" value="13" maxlength="3"></div>
+          </div>
+        </div>
+        <div class="ts-pins evenly hidden forexport" id="ts-cap" data-export="PINS">
+          <div class="inputwrap"><span class="inputtitle">SDA</span><input type="text" class="textinput" id="i35" data-define="TS_SDA" data-color="yellow" value="33" maxlength="3"></div>
+          <div class="inputwrap"><span class="inputtitle">SCL</span><input type="text" class="textinput" id="i36" data-define="TS_SCL" data-color="yellow" value="32" maxlength="3"></div>
+          <div class="inputwrap"><span class="inputtitle">INT</span><input type="text" class="textinput" id="i37" data-define="TS_INT" data-color="yellow" value="21" maxlength="3"></div>
+          <div class="inputwrap"><span class="inputtitle">RST</span><input type="text" class="textinput" id="i38" data-define="TS_RST" data-color="yellow" value="22" maxlength="3"></div>
+        </div>
+      </section>
+    </div><!-- TOUCHSCREEN -->
+    <!-- SDCARD -->
+    <div id="setup-sdcard" class="hidden">
+      <hr class="double" />
+      <section id="sdcard">
+        <div class="title"><span>sd карта</span></div><div class="help" data-targetid="help-sdcard" data-title="sd card">?</div>
+        <div class="sd-pins">
+          <h3 class="subtitle">SD SPI BUS</h3>
+          <div class="evenly forexport" data-define="SD_HSPI" data-export="RADIO">
+            <label class="dsplabel"><input type="radio" class="radio rbox spitype vspi" id="r64" name="sdspitype" data-type="default" data-define="SD_" data-color="bgreen" checked /><span class="checkmark"></span>VSPI (mosi-23, miso-19, sck-18)</label>
+            <label class="dsplabel"><input type="radio" class="radio rbox spitype" id="r65" name="sdspitype" data-type="true" data-define="SD_" data-color="bgreen" /><span class="checkmark"></span>HSPI (mosi-13, miso-12, sck-14)</label>
+          </div>
+          <hr class="simple" />
+          <div class="evenly forexport" data-export="PINS">
+            <div class="inputwrap"><span class="inputtitle">CS</span><input type="text" class="textinput" id="i39" data-define="SDC_CS" data-color="bgreen" value="" maxlength="3"></div>
+          </div>
+        </div>
+      </section>
+    </div><!-- SDCARD -->
+    <!-- ETC -->
+    <div id="setup-etc" class="hidden">
+      <hr class="double" />
+      <section id="etc">
+        <div class="title"><span>прочее</span></div><div class="help" data-targetid="help-etc" data-title="etc and so on">?</div>
+        <div class="evenly">
+          <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-etc rbox" id="r66" data-target="etc-led"/><span class="checkmark box"></span>Светодиод</label>
+          <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-etc rbox libs-required" id="r67" data-target="etc-ir" data-libs="IRremoteESP8266" /><span class="checkmark box"></span>ИК</label>
+          <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-etc rbox" id="r68" data-target="etc-mute"/><span class="checkmark box"></span>MUTE PIN</label>
+          <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-etc rbox" id="r69" data-target="etc-wake"/><span class="checkmark box"></span>WAKE PIN</label>
+          <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-etc rbox" id="r70" data-target="etc-light"/><span class="checkmark box"></span>Датчик света</label>
+        </div>
+        <hr class="simple" />
+        <div class="evenly forexport" data-export="PINS">
+          <div class="inputwrap hidden" id="etc-led"><span class="inputtitle">led indicator</span><input type="text" class="textinput" id="i40" data-define="LED_BUILTIN" data-color="pink" value="2" maxlength="3"></div>
+          <div class="inputwrap hidden" id="etc-ir"><span class="inputtitle">ir</span><input type="text" class="textinput" id="i41" data-define="IR_PIN" data-color="pink" value="255" maxlength="3"></div>
+          <div class="inputwrap hidden" id="etc-mute"><span class="inputtitle">mute</span><input type="text" class="textinput" id="i42" data-define="MUTE_PIN" data-color="pink" value="255" maxlength="3"></div>
+          <div class="inputwrap hidden" id="etc-wake"><span class="inputtitle">wake</span><input type="text" class="textinput" id="i43" data-define="WAKE_PIN" data-color="pink" value="255" maxlength="3"></div>
+          <div class="inputwrap hidden" id="etc-light"><span class="inputtitle">light sensor</span><input type="text" class="textinput" id="i44" data-define="LIGHT_SENSOR" data-color="pink" value="255" maxlength="3"></div>
+        </div>
+      </section>
+    </div><!-- ETC -->
+    <hr class="double" />
+    <div id="submit" class="evenly">
+      <div class="button apply" title="Reset to defaults" onclick="window.scrollTo(0, 0); window.location.href = window.location.href.split('?')[0];">Сброс</div>
+      <div class="button apply hlbutton" title="Download myoptions.h" onclick="doExport();">YOOOOOOO!</div>
+      <div class="button apply" title="Show connections" onclick="doPreview();">предпросмотр</div>
+      <div class="button apply" id="docopy" title="Copy to clipboard" onclick="doExport(true);">Копировать</div>
+    </div>
+    <div class="href" onclick="getLink();">>> ссылка на данную конфигурацию <<</div>
+    <div id="footer"></div>
+    <button onclick="topFunction()" id="topbtn" class="scrollbutton">&#8593;</button>
+    <button onclick="bottomFunction()" id="bottombtn" class="scrollbutton">&#8595;</button>
+    <div id="helpwrapper" class="hidden">
+      <div id="helpborder">
+        <div id="helptitle"></div>
+        <div id="helpcontent">
+          <div class="helpitem hidden" id="help-module">
+            <p>Вспомогательный раздел, позволяющий запретить назначение пинов 16-17 при выборе модуля ESP32-WROVER.</p>
+            <p>Values in this section are not included in myoptions.h</p>
+          </div>
+          <div class="helpitem hidden" id="help-setup">
+            <p>Здесь вам надо указать, какое железо вы хотите подключить</p>
+            <p>Значения из этой секции не включаются в myoptions.h</p>
+          </div>
+          <div class="helpitem hidden" id="help-language">
+            <p>Язык, на котором отображается информация на дисплее.</p>
+            <p>Параметры добавляемые в myoptions.h:</p>
+            <code>
+<span>#define L10N_LANGUAGE EN</span>
+            </code>
+          </div>
+          <div class="helpitem hidden" id="help-display">
+            <p>Модель дисплея. Смотри доступные значения\описание тут:<br />
+            <a href="https://github.com/e2002/yoradio/wiki/Available-display-models" target="_blank">https://github.com/e2002/yoradio/wiki/Available-display-models</a></p>
+            <p>Параметры добавляемые в myoptions.h:</p>
+            <code>
+<span>#define DSP_MODEL         DSP_DUMMY</span>
+            </code>
+            <p>Дисплеи Nextion могут работать параллельно с другим дисплеем (или без дисплея, отдельно).</p>
+            <p>Specify the <strong>[ ]+NEXTION</strong> parameter and ask for a description below.</p>
+          </div>
+          <div class="helpitem hidden" id="help-display-pins">
+            <p>В зависимости от выбранного выше типа дисплея здесь отображаются параметры его подключения.</p>
+            <p>Если у вас есть вопросы о выборе HSPI или VSPI, ознакомьтесь с <a href="https://randomnerdtutorials.com/esp32-spi-communication-arduino/#esp32-spi-pins" target="_blank">этой </a>заметкой или установите настройки по умолчанию.</p>
+            <p>Параметры добавляемые в myoptions.h:</p>
+            <p class="title">SPI Displays</p>
+            <code>
+/*  VSPI PINS.
+    SCL(SCK, CLK) must be connected to pin 18
+    SDA(MOSI, DIN, SDI) must be connected to pin 23  */
+/*  HSPI PINS. Set DSP_HSPI to true
+    SCL(SCK, CLK) must be connected to pin 14
+    SDA(MOSI, DIN, SDI) must be connected to pin 13  */
+<span>#define DSP_HSPI        false</span>    /*  Use HSPI for display  */
+<span>#define TFT_CS          5</span>        /*  SPI CS pin  */
+<span>#define TFT_RST         -1</span>       /*  SPI RST pin */
+<span>#define TFT_DC          4</span>        /*  SPI DC/RS pin  */
+<span>#define BRIGHTNESS_PIN  255</span>      /* BRIGHTNESS Pin  */
+            </code>
+            <p class="title">I2C Displays</p>
+            <code>
+<span>#define I2C_SDA         21</span>       /*  I2C SDA pin  */
+<span>#define I2C_SCL         22</span>       /*  I2C SCL pin  */
+            </code>
+            <p class="title">LCD Displays</p>
+            <code>
+<span>#define LCD_RS          255</span>      /*  RS Pin */
+<span>#define LCD_E           255</span>      /*  E Pin  */
+<span>#define LCD_D4          255</span>      /*  D4 Pin */
+<span>#define LCD_D5          255</span>      /*  D5 Pin */
+<span>#define LCD_D6          255</span>      /*  D6 Pin */
+<span>#define LCD_D7          255</span>      /*  D7 Pin */
+            </code>
+          </div>
+          <div class="helpitem hidden" id="help-nextion">
+            <p>Если все параметры равны 255, дисплей nextion не используется.</p>
+            <p>Параметры добавляемые в myoptions.h:</p>
+            <code>
+<span>#define NEXTION_RX    255</span>        /*  Nextion RX pin  */
+<span>#define NEXTION_TX    255</span>        /*  Nextion TX pin  */
+            </code>
+          </div>
+          <div class="helpitem hidden" id="help-audio">
+            <p>Это проект работает с тремя типа аудиодекодеров: <br /><strong>внешний I2S DAC, VS1053 SPI DAC</strong> and <strong>встроеннный в ESP32 I2S DAC</strong>.</p>
+            <p>Значения из этой секции не включаются в myoptions.h</p>
+            <p>Если вам нужен МОНО звук, смотрите опцию МОНО в данной секции.</p>
+            <p>Параметры добавляемые в myoptions.h:</p>
+            <code>
+<span>#define PLAYER_FORCE_MONO    false</span>
+            </code>
+          </div>
+          <div class="helpitem hidden" id="help-audio-pins">
+            <p>В зависимости от выбранного выше типа аудиодекодера здесь отображаются параметры его подключения.</p>
+            <p>Если у вас есть вопросы о выборе HSPI или VSPI, ознакомьтесь с <a href="https://randomnerdtutorials.com/esp32-spi-communication-arduino/#esp32-spi-pins" target="_blank">этой </a>заметкой или установите настройки по умолчанию.</p>
+            <p>Parameters added to myoptions.h (default value specified):</p>
+            <p class="title">VS1053B</p>
+            <code>
+/*  VS1053 VSPI PINS.
+    VS1053 SCK must be connected to pin 18
+    VS1053 MISO must be connected to pin 19
+    VS1053 MOSI must be connected to pin 23  */
+/*  VS1053 HSPI PINS.
+    VS1053 SCK must be connected to pin 14
+    VS1053 MISO must be connected to pin 12
+    VS1053 MOSI must be connected to pin 13  */
+<span>#define VS_HSPI       false</span>  /*  Use HSPI for VS  */
+<span>#define VS1053_CS     255</span>    /*  XCS pin */
+<span>#define VS1053_DCS    25</span>     /*  XDCS pin.  */
+<span>#define VS1053_DREQ   26</span>     /*  DREQ pin.  */
+<span>#define VS1053_RST    -1</span>     /*  XRESET pin. */
+            </code>
+            <p class="title">External I2S DAC</p>
+            <code>
+<span>#define I2S_DOUT      27</span>     /*  DIN connection */
+<span>#define I2S_BCLK      26</span>     /*  BCLK Bit clock */
+<span>#define I2S_LRC       25</span>     /*  WSEL Left Right Clock */
+            </code>
+            <p class="title">Internal I2S DAC</p>
+            <code>
+<span>#define I2S_INTERNAL  false</span>  /*  If true - use esp32 internal DAC  */
+            </code>
+          </div>
+          <div class="helpitem hidden" id="help-buttons">
+            <p>Укажите какие кнопки вы хотели бы использовать. Вы можете подключить до пяти кнопок + кнопка переключения режимов.</p>
+            <p>Значения из этой секции не включаются в myoptions.h</p>
+            <p>Вы можете настроить <strong>пины кнопок</strong> в секции ниже.</p>
+          </div>
+          <div class="helpitem hidden" id="help-buttons-pins">
+            <p>Вы можете подключить до пяти кнопок + кнопка переключения режимов.</p>
+            <p>Логику работы кнопок смотрите <a href="https://github.com/e2002/yoradio/blob/main/Controls.md#buttons" target="_blank">здесь</a>.</p>
+            <p>Параметры добавляемые в myoptions.h:</p>
+            <code>
+<span>#define BTN_LEFT              255</span>    /*  VolDown, Prev */
+<span>#define BTN_CENTER            255</span>    /*  Play, Stop, Show playlist */
+<span>#define BTN_RIGHT             255</span>    /*  VolUp, Next */
+<span>#define BTN_UP                255</span>    /*  Prev, Move Up */
+<span>#define BTN_DOWN              255</span>    /*  Next, Move Down */
+<span>#define BTN_INTERNALPULLUP    true</span>   /*  Enable the weak pull up resistors */
+
+<span>#define BTN_MODE              255</span>    /*  MODE switcher  */
+            </code>
+          </div>
+          <div class="helpitem hidden" id="help-encoders">
+            <p>Вы можете подключить 1 или 2 энкодера для управления устройством.</p>
+            <p>Логику работы энкодеров смотрите <a href="https://github.com/e2002/yoradio/blob/main/Controls.md#encoders" target="_blank">здесь</a>.</p>
+            <p>Значения из этой секции не включаются в myoptions.h</p>
+            <p>Вы можете настроить <strong>пины энкодеров</strong> в секции ниже</p>
+          </div>
+          <div class="helpitem hidden" id="help-encoders-pins">
+            <p>Параметры добавляемые в myoptions.h:</p>
+            <code>
+/*  ENCODER  */
+<span>#define ENC_BTNL              255</span>    /*  Left rotation (S2) */
+<span>#define ENC_BTNB              255</span>    /*  Encoder button (KEY) */
+<span>#define ENC_BTNR              255</span>    /*  Right rotation (S1) */
+<span>#define ENC_INTERNALPULLUP    true</span>   /*  Enable the weak pull up resistors */
+<span>#define ENC_HALFQUARD         false</span>  /*  Experiment  with it */
+
+/*  ENCODER2  */
+<span>#define ENC2_BTNL             255</span>    /*  Left rotation (S2) */
+<span>#define ENC2_BTNB             255</span>    /*  Encoder button (KEY) */
+<span>#define ENC2_BTNR             255</span>    /*  Right rotation (S1) */
+<span>#define ENC2_INTERNALPULLUP   true</span>   /*  Enable the weak pull up resistors */
+<span>#define ENC2_HALFQUARD        false</span>  /*  (true, false, 255) Experiment  with it */
+            </code>
+          </div>
+          <div class="helpitem hidden" id="help-touchscreen">
+            <p>Сейчас поддреживаются только 2 тачскрина - XPT2046 and GT911</p>
+            <p>Если у вас есть вопросы о выборе HSPI или VSPI, ознакомьтесь с <a href="https://randomnerdtutorials.com/esp32-spi-communication-arduino/#esp32-spi-pins" target="_blank">этой </a>заметкой или установите настройки по умолчанию.</p>
+            <p>Параметры добавляемые в myoptions.h:</p>
+            <p class="title">Емкостной SPI тачскрин (XPT2046)</p>
+            <code>
+/*  TS VSPI PINS.
+    CLK must be connected to pin 18
+    DIN must be connected to pin 23
+    DO  must be connected to pin 19
+    IRQ - not connected */
+/*  TS HSPI PINS.
+    CLK must be connected to pin 14
+    DIN must be connected to pin 13
+    DO  must be connected to pin 12
+    IRQ - not connected */
+<span>#define TS_CS     255</span>    /*  Touch screen CS pin  */
+<span>#define TS_HSPI   false</span>  /*  Use HSPI for Touch screen  */
+            </code>
+            <p class="title">Capacitive I2C touch screen (GT911)</p>
+            <code>
+<span>#define TS_SDA                33</span>
+<span>#define TS_SCL                32</span>
+<span>#define TS_INT                21</span>
+<span>#define TS_RST                25</span>
+            </code>
+            <p class="title">Стандартное значение для TS_MODEL</p>
+            <code>
+<span>#define TS_MODEL              TS_MODEL_UNDEFINED</span>
+            </code>
+          </div>
+          <div class="helpitem hidden" id="help-sdcard">
+            <p>Если у вас есть вопросы о выборе HSPI или VSPI, ознакомьтесь с <a href="https://randomnerdtutorials.com/esp32-spi-communication-arduino/#esp32-spi-pins" target="_blank">этой </a>заметкой или установите настройки по умолчанию.</p>
+            <p>Параметры добавляемые в myoptions.h:</p>
+            <code>
+/*  MISO is the same as D0, MOSI is the same as D1 */
+/*  SD VSPI PINS.
+    SD SCK must be connected to pin 18
+    SD MISO must be connected to pin 19
+    SD MOSI must be connected to pin 23  */
+/*  SD HSPI PINS.
+    SD SCK must be connected to pin 14
+    SD MISO must be connected to pin 12
+    SD MOSI must be connected to pin 13  */
+<span>#define SD_HSPI       false</span>
+<span>#define SDC_CS        255</span>    /* SDCARD CS pin */
+            </code>
+          </div>
+          <div class="helpitem hidden" id="help-etc">
+            <p>Настройки светодиода, ИК и прочего.</p>
+            <p>Параметры добавляемые в myoptions.h:</p>
+            <code>
+<span>#define LED_BUILTIN   255</span>    /*  Onboard LED Pin */
+<span>#define IR_PIN        255</span>    /* <a href="https://github.com/e2002/yoradio/blob/main/Controls.md#ir-receiver" target="_blank"><u>More about IR Receiver</u></a> */
+<span>#define MUTE_PIN      55</span>     /*  MUTE Pin */
+<span>#define WAKE_PIN      255</span>    /*  Wake Pin (for manual wakeup from sleep mode) */
+/* can match with BTN_XXXX, ENC_BTNB, ENC2_BTNB.  must be one of: 0,2,4,12,13,14,15,25,26,27,32,33,34,35,36,39) */
+<span>#define LIGHT_SENSOR  255</span>    /*  Light sensor  */
+            </code>
+            <p>Настройки, не обрабатываемые генератором на данный момент (вы можете добавть их вручную):</p>
+            <p>Добавляйте их только если они очень нужны!!!</p>
+            <p>Параметры добавляемые в  myoptions.h:</p>
+            <code>
+<span>#define LED_INVERT    false</span>    /*  Invert Onboard LED? */
+<span>#define MUTE_VAL    HIGH</span>   /*  Write this to MUTE_PIN when player is stopped */
+/*  Autobacklight function. See options.h for exsample  */
+<span>#define AUTOBACKLIGHT(x)  *function*</span>
+/* IR_TIMEOUT. See kTimeout description in <a href="https://github.com/crankyoldgit/IRremoteESP8266/blob/master/examples/IRrecvDumpV2/IRrecvDumpV2.ino" target="_blank">IRremoteESP8266 exsample</a>  */
+<span>#define IR_TIMEOUT      80 </span>        
+
+<span>#define BTN_LONGPRESS_LOOP_DELAY    200</span>  /*  Delay between calling DuringLongPress event */
+<span>#define BTN_CLICK_TICKS    300</span> /*  Event Timing https://github.com/mathertel/OneButton#event-timing */
+<span>#define BTN_PRESS_TICKS    500</span> /*  Event Timing https://github.com/mathertel/OneButton#event-timing */
+            </code>
+          </div>
+        </div>
+        <div id="helpfooter" class="evenly"><div class="button apply hlbutton" onclick="doneHelp();">ок</div></div>
+      </div>
+    </div>
+  </div><!--content-->
+</body>
+<script>
+  var defaultValues = { "TFT_DC":       5,   "TFT_CS":        4,  "TFT_RST":    -1, "BRIGHTNESS_PIN": 255,
+                        "I2C_SDA":      21,  "I2C_SCL":       22, 
+                        "I2S_DOUT":     27,  "I2S_BCLK":      26, "I2S_LRC":    25,
+                        "VS1053_DCS":   25,  "VS1053_DREQ":   26, "VS1053_RST": -1,
+                        "TS_CS":        13,  "TS_SDA":        33, "TS_SCL":     32, "TS_INT":         21,   "TS_RST":   25,
+                        "LED_BUILTIN":  255, "MUTE_PIN":      255,"WAKE_PIN":   255,"LIGHT_SENSOR":   255,  "IR_PIN":   255,
+                        "BTN_LEFT":     255, "BTN_CENTER":    255,"BTN_RIGHT":  255,"BTN_UP":         255,  "BTN_DOWN": 255, "BTN_MODE": 255 };
+  
+  var atimeout;
+  var validGPIOs = [-1,0,2,4,5,12,13,14,15,16,17,18,19,21,22,23,25,26,27,32,33,34,35,36,39,255];
+  var vspiGPIOs  = [ 18,19,23 ];
+  var hspiGPIOs  = [ 12,13,14 ];
+  var isWrover   = false;
+  window.addEventListener('load', onLoad);
+  function donePreview(){
+    document.getElementById('preview').classList.add('hidden');;
+    let elements = document.getElementsByClassName('preview-pin');
+    for (var i = elements.length -1; i >= 0; i--) {
+      if(!elements[i].classList.contains("preview-pin-static")) elements[i].remove();
+    }
+  }
+  function doPreview(){
+    if(!validatePins()) {
+      doAlert("error", "Error filling values");
+      return;
+    }
+    let pinWrover = document.getElementsByClassName("preview-pin-wrover");
+    for (var i = pinWrover.length -1; i >= 0; i--) {
+      pinWrover[i].parentNode.classList.remove("add");
+      pinWrover[i].remove();
+    }
+    let movableDynamic = document.getElementsByClassName("movable-dynamic");
+    for (var i = 0; i < movableDynamic.length; i++) {
+      movableDynamic[i].classList.add("movable");
+    }
+    if(isWrover){
+      for (var i = 16; i <= 17; i++) {
+        let targetId=document.getElementById("gpio-"+i);
+        let previewPin = document.createElement("div");
+        previewPin.classList.add("preview-pin"); //preview-pin preview-pin-dis preview-pin-static
+        previewPin.classList.add("preview-pin-dis");
+        previewPin.classList.add("preview-pin-static");
+        previewPin.classList.add("preview-pin-wrover");
+        previewPin.innerHTML = "X";
+        targetId.appendChild(previewPin);
+        targetId.classList.remove("movable");
+      }
+    }
+    let spitypes = document.getElementsByClassName("spitype");
+    for (var i = 0; i < spitypes.length; i++) {
+      if(spitypes[i].offsetParent === null) continue;
+      const spiPins = [];
+      const spiNames = ["MOSI","MISO","SCK"];
+      if(spitypes[i].checked){
+        if(spitypes[i].classList.contains("vspi")){
+          spiPins[0]=23; spiPins[1]=19; spiPins[2]=18;
+        }else{
+          spiPins[0]=13; spiPins[1]=12; spiPins[2]=14;
+        }
+        let color = "preview-" + spitypes[i].getAttribute("data-color");
+        for (var k = 0; k < spiPins.length; k++) {
+          let targetId=document.getElementById("gpio-"+spiPins[k]);
+          let previewPin = document.createElement("div");
+          previewPin.classList.add("preview-pin");
+          previewPin.classList.add(color);
+          previewPin.innerHTML = spitypes[i].getAttribute("data-define") + spiNames[k] + "&nbsp;["+spiPins[k]+"]";
+          previewPin.id = "preview-static-"+k;
+          targetId.appendChild(previewPin);
+          targetId.classList.remove("movable");
+        }
+      }
+    }
+    let textinputs = document.getElementsByClassName("textinput");
+    for (var i = 0; i < textinputs.length; i++) {
+      if(textinputs[i].offsetParent === null) continue;
+      if(textinputs[i].value!="" && textinputs[i].value!="255"){
+        let targetId=document.getElementById("gpio-"+textinputs[i].value);
+        if(textinputs[i].value=="-1") targetId=document.getElementById("gpio-en");
+        if(targetId){
+          let color = "preview-" + textinputs[i].getAttribute("data-color");
+          let previewPin = document.createElement("div");
+          previewPin.classList.add("preview-pin");
+          previewPin.classList.add(color);
+          previewPin.setAttribute("data-parent", textinputs[i].id);
+          previewPin.setAttribute("data-value", textinputs[i].value);
+          previewPin.setAttribute("data-define", textinputs[i].getAttribute("data-define"));
+          previewPin.innerHTML = textinputs[i].getAttribute("data-define") + "&nbsp;["+textinputs[i].value+"]";
+          previewPin.id = "preview-"+i;
+          targetId.appendChild(previewPin);
+        }
+      }else{
+        let targetId=document.getElementById("preview-pins-unused");
+        let color = "preview-" + textinputs[i].getAttribute("data-color");
+          let previewPin = document.createElement("div");
+          previewPin.classList.add("preview-pin");
+          previewPin.classList.add(color);
+          previewPin.setAttribute("data-parent", textinputs[i].id);
+          previewPin.setAttribute("data-value", textinputs[i].value);
+          previewPin.setAttribute("data-define", textinputs[i].getAttribute("data-define"));
+          previewPin.innerHTML = textinputs[i].getAttribute("data-define");
+          previewPin.id = "preview-"+i;
+          targetId.appendChild(previewPin);
+      }
+    }
+    document.getElementById('preview').classList.remove('hidden');
+    
+    let movable = document.getElementsByClassName("movable");
+    for (var i = 0; i < movable.length; i++) {
+      let draggable = movable[i].getElementsByClassName("preview-pin")[0];
+      if(draggable) draggable.setAttribute("draggable", true);
+    }
+    movable = document.getElementById("preview-pins-unused").getElementsByClassName("preview-pin");
+    for (var i = 0; i < movable.length; i++) {
+      movable[i].setAttribute("draggable", true);
+    }
+    document.getElementById("preview").style.paddingLeft=document.getElementById("preview-pins-unused").offsetWidth + 20 + "px";
+  }
+  function dontAlert(){
+    document.getElementById("alert").setAttribute("class", "hidden");
+    document.getElementById("alert").innerHTML = "";
+    if(atimeout) clearTimeout(atimeout);
+  }
+  function doAlert(atype, atext, atimeout=7000){
+    document.getElementById("alert").setAttribute("class", atype);
+    document.getElementById("alert").innerHTML = atext;
+    atimeout = setTimeout(dontAlert, atimeout);
+  }
+  function saveAlert(atype, atext){
+    localStorage.setItem('alert', atext);
+    localStorage.setItem('atype', atype);
+  }
+  function loadAlert(){
+    let salert = localStorage.getItem('alert');
+    if(salert){
+      let satype = localStorage.getItem('atype');
+      doAlert(satype, salert);
+      localStorage.removeItem('alert');
+      localStorage.removeItem('atype');
+    }
+  }
+  function dspRadioClick(){
+    let target=this.getAttribute('data-target');
+    document.getElementById("display-pins").classList.add("hidden");
+    document.getElementById("pins-spi").classList.add("hidden");
+    document.getElementById("pins-i2c").classList.add("hidden");
+    document.getElementById("pins-lcd").classList.add("hidden");
+    if(target!="dmy") document.getElementById("display-pins").classList.remove("hidden");
+    if(target=="spi") document.getElementById("pins-spi").classList.remove("hidden");
+    if(target=="i2c") document.getElementById("pins-i2c").classList.remove("hidden");
+    if(target=="lcd") document.getElementById("pins-lcd").classList.remove("hidden");
+    document.getElementById("pins-7735").classList.add("hidden");
+    if(this.hasAttribute('data-st')) {
+      document.getElementById("pins-7735").classList.remove("hidden");
+      document.getElementsByClassName("initr-blacktab")[0].click();
+    }
+  }
+  function nextionBoxClick(){
+    if(this.checked){
+      document.getElementById("nextion").classList.remove("hidden");
+    }else{
+      document.getElementById("nextion").classList.add("hidden");
+    }
+  }
+  function buttonsUseClick(){
+    let hiddenradio = document.getElementById("scontent-buttons").getElementsByClassName("hiddenradio");
+    let  pinbuttons = document.getElementsByClassName(" pinbuttons");
+    if(this.checked){
+      document.getElementById("buttons-pins").classList.remove("hidden");
+      for (var i = 0; i < hiddenradio.length; i++) {
+        hiddenradio[i].classList.remove("hidden");
+      }
+      for (var i = 0; i < pinbuttons.length; i++) {
+        if(document.getElementsByClassName("five-buttons")[0].checked){
+          pinbuttons[i].classList.remove("hidden");
+        }else{
+          if(pinbuttons[i].classList.contains("threebuttons")) pinbuttons[i].classList.remove("hidden");
+        }
+      }
+    }else{
+      if(!document.getElementsByClassName("mode-button")[0].checked) document.getElementById("buttons-pins").classList.add("hidden");
+      for (var i = 0; i < hiddenradio.length; i++) {
+        hiddenradio[i].classList.add("hidden");
+      }
+      for (var i = 0; i < pinbuttons.length; i++) {
+         pinbuttons[i].classList.add("hidden");
+      }
+    }
+  }
+  function buttonsModeClick(){
+    if(this.checked) document.getElementById("modebutton").classList.remove("hidden"); else document.getElementById("modebutton").classList.add("hidden");
+    let controlButtons = document.getElementsByClassName("control-buttons")[0];
+    if(!controlButtons.checked) document.getElementById("buttons-pins").classList.remove("hidden");
+    if(!this.checked && !controlButtons.checked) document.getElementById("buttons-pins").classList.add("hidden");
+  }
+  function audioRadioClick(){
+    let target=this.getAttribute('data-target');
+    document.getElementById("audio-pins-spi-wrap").classList.add("hidden");
+    document.getElementById("audio-pins-i2s").classList.add("hidden");
+    document.getElementById("audio-pins").classList.remove("hidden");
+    if(target=="int") document.getElementById("audio-pins").classList.add("hidden");
+    if(target=="i2s") document.getElementById("audio-pins-i2s").classList.remove("hidden");
+    if(target=="vs") document.getElementById("audio-pins-spi-wrap").classList.remove("hidden");
+  }
+  function buttonsRadioClick(){
+    let target=this.getAttribute('data-target');
+    let fbuttons = document.getElementsByClassName("fivebuttons");
+    for (var i = 0; i < fbuttons.length; i++) {
+      if(target=="treebuttons") fbuttons[i].classList.add("hidden"); else fbuttons[i].classList.remove("hidden");
+    }
+  }
+  function encoderCheckboxClick(){
+    let ebx1 = document.getElementsByClassName("encoder-box1")[0];
+    let ebx2 = document.getElementsByClassName("encoder-box2")[0];
+    let epinssection = document.getElementById("encoders-pins");
+    if(ebx1.checked || ebx2.checked) epinssection.classList.remove("hidden"); else epinssection.classList.add("hidden");
+    if(ebx1.checked) document.getElementById("epins1").classList.remove("hidden"); else document.getElementById("epins1").classList.add("hidden");
+    if(ebx2.checked) document.getElementById("epins2").classList.remove("hidden"); else document.getElementById("epins2").classList.add("hidden");
+    if(ebx1.checked && ebx2.checked) document.getElementById("ehr").classList.remove("hidden"); else document.getElementById("ehr").classList.add("hidden");
+  }
+  function setupCheckboxClick(){
+    let target = this.getAttribute("data-target");
+    let targetId = document.getElementById(target);
+    if(targetId) targetId.classList.toggle("hidden");
+  }
+  function initCheckboxes(){
+    let sdsp = document.getElementById("scontent-displays");
+    let elements = sdsp.getElementsByClassName("radio");
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].addEventListener('click', dspRadioClick, false);
+    }
+    document.getElementsByClassName("plus-nextion")[0].addEventListener('click', nextionBoxClick, false);
+    document.getElementsByClassName("control-buttons")[0].addEventListener('click', buttonsUseClick, false);
+    document.getElementsByClassName("mode-button")[0].addEventListener('click', buttonsModeClick, false);
+    sdsp = document.getElementById("scontent-audio");
+    elements = sdsp.getElementsByClassName("radio");
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].addEventListener('click', audioRadioClick, false);
+    }
+    sdsp = document.getElementById("scontent-buttons");
+    elements = sdsp.getElementsByClassName("radio");
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].addEventListener('click', buttonsRadioClick, false);
+    }
+    elements = document.getElementsByClassName("encodercheckbox");
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].addEventListener('click', encoderCheckboxClick, false);
+    }
+    elements = document.getElementsByClassName("checkbox-setup");
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].addEventListener('click', setupCheckboxClick, false);
+    }
+    elements = document.getElementsByClassName("dspradio");
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].addEventListener('click', function(){
+        document.getElementById("dsp-rotate").classList.add("hidden");
+        document.getElementById("dsp-invert").classList.add("hidden");
+        if(this.checked && this.hasAttribute("data-rotate")) document.getElementById("dsp-rotate").classList.remove("hidden");
+        if(this.checked && this.hasAttribute("data-invert")) document.getElementById("dsp-invert").classList.remove("hidden");
+      }, false);
+    }
+    elements = document.getElementsByClassName("tsradio");
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].addEventListener('click', function(){
+        let target = this.getAttribute("data-target");
+        let tspins = document.getElementsByClassName("ts-pins");
+        for (var k = 0; k < tspins.length; k++) {
+          tspins[k].classList.add("hidden");
+        }
+        document.getElementById(target).classList.remove("hidden");
+      }, false);
+    }
+    elements = document.getElementsByClassName("checkbox-etc");
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].addEventListener('click', function(){
+        let target = this.getAttribute("data-target");
+        if(this.checked) document.getElementById(target).classList.remove("hidden"); else document.getElementById(target).classList.add("hidden");
+      }, false);
+    }
+  }
+  function validatePins(){
+    let elements = document.getElementsByClassName("textinput");
+    var hspibusy = false;
+    var vspibusy = false;
+    isWrover = document.getElementsByClassName("espmodule")[1].checked;
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].classList.remove("error");
+      elements[i].classList.remove("conflict");
+      elements[i].classList.remove("invalid");
+      elements[i].classList.remove("wrover");
+      elements[i].classList.remove("vspi");
+      elements[i].classList.remove("hspi");
+    }
+    let spitype = document.getElementsByClassName("spitype");
+    for (var i = 0; i < spitype.length; i++) {
+      if(spitype[i].offsetParent === null) continue;
+      if(spitype[i].checked){
+        if(spitype[i].classList.contains("vspi")) vspibusy=true; else hspibusy=true;
+        //if(spitype[i].classList.contains("hspi")) hspibusy=true;
+      }
+    }
+    for (var i = 0; i < elements.length; i++) {
+      if(elements[i].offsetParent === null || elements[i].value=="" || elements[i].value=="-1" || elements[i].value=="255") continue;
+      if(hspibusy==true && hspiGPIOs.includes(parseInt(elements[i].value))){
+        elements[i].classList.add("error");
+        elements[i].classList.add("hspi");
+        elements[i].scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
+        return false;
+      }
+      if(vspibusy==true && vspiGPIOs.includes(parseInt(elements[i].value))){
+        elements[i].classList.add("error");
+        elements[i].classList.add("vspi");
+        elements[i].scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
+        return false;
+      }
+      var validGPIOsFiltered = isWrover?validGPIOs.filter(function(value, index, arr){  return value != 16 && value != 17; }):validGPIOs;
+      let intVal = parseInt(elements[i].value);
+      if(!validGPIOsFiltered.includes(intVal)) {
+        elements[i].classList.add("error");
+        elements[i].classList.add((intVal==16 || intVal==17)?"wrover":"invalid");
+        elements[i].scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
+        return false;
+      }
+      for (var k = 0; k < elements.length; k++) {
+        if(elements[k].offsetParent === null || elements[k].value=="" || elements[i].value=="-1" || elements[i].value=="255") continue;
+        if(elements[i]==elements[k]) continue;
+        if(elements[i].value==elements[k].value){
+          elements[i].classList.add("error");
+          elements[i].classList.add("conflict");
+          elements[k].classList.add("error");
+          elements[k].classList.add("conflict");
+          elements[i].scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+  function initTextInputs(){
+    let elements = document.getElementsByClassName("textinput");
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].addEventListener('focus', function(){this.classList.remove("error");this.select();}, false);
+      elements[i].addEventListener('blur', function(){
+        validatePins();
+      }, false);
+    }
+  }
+  function loadConfigFromUrl(){
+    let params = (new URL(document.location)).searchParams;
+    let rr = params.get('r');
+    let ii = params.get('i');
+    let vv = params.get('v');
+    if(!rr || !ii || !vv) return;
+    try {
+      var datarr = JSON.parse("["+rr+"]");
+      var dataii = JSON.parse("["+ii+"]");
+      var datavv = JSON.parse("[\""+vv.replace(/,/g, '","')+"\"]");
+      
+    } catch (error) {
+      console.error(error);
+      doAlert("error", error);
+      return;
+    }
+    if(typeof datarr !== 'undefined'){
+      let cboxes = document.getElementsByClassName("checkbox");
+      for (var i = 0; i < cboxes.length; i++) {
+        let aid = parseInt(cboxes[i].id.substr(1));
+        if(datarr.includes(aid) && !cboxes[i].checked) cboxes[i].click();
+        if(!datarr.includes(aid) && cboxes[i].checked) cboxes[i].click();
+      }
+      let rboxes = document.getElementsByClassName("radio");
+      for (var i = 0; i < rboxes.length; i++) {
+        let aid = parseInt(rboxes[i].id.substr(1));
+        if(datarr.includes(aid)) rboxes[i].click();
+      }
+      for (var i = 0; i < dataii.length; i++) {
+        document.getElementById("i"+dataii[i]).value = datavv[i].substr(0,3);
+      }
+    }
+  }
+  function initHelp(){
+    let elements = document.getElementsByClassName("help");
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].addEventListener('click', function(){
+        document.getElementById("helptitle").innerHTML = this.getAttribute("data-title");
+        let target = document.getElementById(this.getAttribute("data-targetid"));
+        if(target) target.classList.remove("hidden");
+        document.getElementById("helpwrapper").classList.remove("hidden");
+      });
+    }
+  }
+  function doneHelp(){
+    document.getElementById("helpwrapper").classList.add("hidden");
+    let items = document.getElementsByClassName("helpitem");
+    for (var i = 0; i < items.length; i++) {
+      items[i].classList.add("hidden");
+    }
+  }
+  function onLoad(event) {
+    document.title = document.title+" - "+GVERSION;
+    let ttl = document.getElementById("pagetitle");
+    ttl.innerText = document.title;
+    document.getElementById("footer").innerHTML = document.title + '<br /><a href="https://github.com/e2002/yoradio/" target="_blank">Репозиторий проекта</a>';
+    initCheckboxes();
+    initTextInputs();
+    initHelp();
+    loadConfigFromUrl();
+    loadAlert();
+  }
+  function topFunction(){
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }
+  function bottomFunction(){
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }
+  function getLink(doreturn=false){
+    let elements = document.getElementsByClassName("rbox");
+    let rr = '';
+    let vv = '';
+    let ii = '';
+    for (var i = 0; i < elements.length; i++) {
+      if(elements[i].checked && elements[i].offsetParent !== null){
+        rr += elements[i].id.substr(1)+",";
+      }
+    }
+    rr = rr.slice(0, -1);
+    elements = document.getElementsByClassName("textinput");
+    for (var i = 0; i < elements.length; i++) {
+      if(elements[i].value!="" && elements[i].offsetParent !== null){
+        ii += elements[i].id.substr(1)+",";
+        vv += elements[i].value+",";
+      }
+    }
+    ii = ii.slice(0, -1);
+    vv = vv.slice(0, -1);
+    let out = `r=${rr}&i=${ii}&v=${vv}`;
+    if(debug) console.log(out);
+    let newlink = window.location.href.split('?')[0]+'?'+out;
+    if(doreturn) return newlink;
+    if(window.location.href.substr(0,4)!="http" && !debug){
+      saveAlert("warning", "This is a local version of the page, the link is available only to you.");
+      window.location.href = newlink;
+      return; 
+    }
+    navigator.clipboard.writeText(newlink).then(function() {
+      saveAlert("info", "Link copied to clipboard!");
+      window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+      window.onscroll = e => {
+        let currentScrollOffset = window.pageYOffset || document.documentElement.scrollTop;
+        if (currentScrollOffset === 0) {
+          window.location.href = newlink;
+          window.onscroll = null;
+        }
+      }
+    }, function(err) {
+      doAlert("error", "Could not copy text");
+    });
+  }
+  function downloadFile(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  }
+  function libsRequired(){
+    let out = "";
+    let adafruit = false;
+    let lr = document.getElementsByClassName("libs-required");
+    let tsxpt = document.getElementsByClassName("touchscreen-xpt")[0];
+    /* Here goes! */
+    for (var i = 0; i < lr.length; i++) {
+      if(lr[i].offsetParent === null) continue;
+      if(!lr[i].checked) continue;
+      if(lr[i].classList.contains("adafruit") && !adafruit){
+        out += "Adafruit GFX Library with dependencies, ";
+        console.log(lr[i].getAttribute("data-type"));
+        adafruit = true;
+      }
+      let libs = lr[i].getAttribute("data-libs");
+      if(!libs) continue;
+      if(out.includes(libs)) continue;
+      out += libs + ", ";
+    }
+    if(out!="") out = "\n/* !!! Внимание !!! */\n/* Эта конфигурация требует установки дополнительных стронних библиотек, установите их черех Arduino IDE: */\n/* " + out.slice(0, -2) + " */\n\n";
+    return out; /* Pewuuu! */
+  }
+  function formatExport(input, toClipboard){
+    let out = `#ifndef myoptions_h\n#define myoptions_h\n\n/* Generated by myoptions.h generator - ${GVERSION} */\n/* ${getLink(true)} */\n/* Put this file next to yoRadio.ino and restart Arduino IDE. */\n${libsRequired()}/* !!! Do not be alarmed, all right, the default values ​​are not included in this file !!! */\n\n${input}\n\n#endif\n`;
+    if(toClipboard){
+      navigator.clipboard.writeText(out).then(function() {
+        doAlert("info", "Текст скопирован в буфер!", 2000);
+      }, function(err) {
+        doAlert("error", "Could not copy text");
+      });
+      return;
+    }
+    downloadFile("myoptions.h", out);
+  }
+  function doExport(toClipboard=false){
+    if(!validatePins()) {
+      doAlert("error", "Error filling values");
+      return;
+    }
+    let forexport = document.getElementsByClassName("forexport");
+    let outstr = "";
+    for (var i = 0; i < forexport.length; i++) {
+      if(forexport[i].offsetParent === null) continue;
+      /*************************************************************/
+      if(forexport[i].getAttribute('data-export')=="RADIO"){
+        let define = forexport[i].getAttribute('data-define');
+        let elements = forexport[i].getElementsByClassName("radio");
+        for (var j = 0; j < elements.length; j++) {
+          if(elements[j].checked && elements[j].offsetParent !== null){
+            let dtype = elements[j].getAttribute('data-type');
+            if(dtype=="default") break;
+            outstr += "#define " + define + "\t\t\t" + dtype + "\n";
+            break;
+          }
+        }doPreview
+        let rotate90 = document.getElementsByClassName("rotate90")[0];
+        let invertTitle = document.getElementsByClassName("invert-title")[0];
+        if(rotate90.checked && rotate90.offsetParent !== null && forexport[i].hasAttribute("data-displays")) outstr += "#define ROTATE_90\t\t\ttrue\n";
+        if(invertTitle.checked && invertTitle.offsetParent !== null && forexport[i].hasAttribute("data-invert")) outstr += "#define DSP_INVERT_TITLE\t\t\ttrue\n";
+      }
+      /*************************************************************/
+      if(forexport[i].getAttribute('data-export')=="PINS"){
+        let isButtons = forexport[i].classList.contains("buttons-pins");
+        let elements = forexport[i].getElementsByClassName("textinput");
+        for (var j = 0; j < elements.length; j++) {
+          if(elements[j].offsetParent !== null){
+            let define = elements[j].getAttribute('data-define');
+            let dtype = elements[j].value;
+            if(dtype==""){
+              elements[j].classList.add("error");
+              elements[j].scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
+              return;
+            }
+            if(defaultValues[define]!=dtype) outstr += "#define " + define + "\t\t\t" + dtype + "\n";
+          }
+        }
+        if(isButtons){
+          let buttonpullup = document.getElementsByClassName("buttonspullup")[0];
+          if(!buttonpullup.checked && buttonpullup.offsetParent !== null) outstr += "#define BTN_INTERNALPULLUP\t\t\tfalse\n";
+        }
+      }
+      /*************************************************************/
+      if(forexport[i].getAttribute('data-export')=="SET"){
+        let elements = forexport[i].getElementsByClassName("setitem");
+        for (var j = 0; j < elements.length; j++) {
+          if(elements[j].offsetParent !== null && elements[j].checked != (elements[j].getAttribute('data-default') === 'true')){
+            let define = elements[j].getAttribute('data-define');
+            outstr += "#define " + define + "\t\t\t" + elements[j].checked + "\n";
+          }
+        }
+      }
+      /*************************************************************/
+      if(forexport[i].getAttribute('data-export')=="AUDIO"){
+        if(document.getElementsByClassName("vs1053")[0].checked) outstr += "#define I2S_DOUT\t\t\t255\n";
+        if(document.getElementsByClassName("i2s-internal")[0].checked) outstr += "#define I2S_INTERNAL\t\t\ttrue\n";
+        if(document.getElementsByClassName("force-mono")[0].checked) outstr += "#define PLAYER_FORCE_MONO\t\t\ttrue\n";
+      }
+      /*************************************************************/
+    }
+    formatExport(outstr,toClipboard);
+  }
+  /* DRAGDROP */
+  let dragged;
+  let node;
+  let draggedId;
+  document.addEventListener("dragstart", ({target}) => {
+	  dragged = target;
+	  draggedId = target.id;
+	  node = target.parentNode;
+  });
+
+  document.addEventListener("dragover", (event) => {
+    event.preventDefault();
+  });
+
+  document.addEventListener("drop", ({target}) => {
+    if(target.id==draggedId) return;
+    if(target.parentNode.classList.contains("movable-rst")) {
+      dragged.remove( dragged );
+      target.parentNode.appendChild(dragged);
+      let targetVal = "-1";
+      document.getElementById(dragged.getAttribute("data-parent")).value = targetVal;
+      dragged.innerHTML = dragged.getAttribute("data-define") + "&nbsp;["+targetVal+"]";
+      dragged.setAttribute("data-value", targetVal);
+      return;
+    }
+    if(target.classList.contains("movable-rst")) {
+      dragged.remove( dragged );
+      target.appendChild(dragged);
+      let targetVal = "-1";
+      document.getElementById(dragged.getAttribute("data-parent")).value = targetVal;
+      dragged.innerHTML = dragged.getAttribute("data-define") + "&nbsp;["+targetVal+"]";
+      dragged.setAttribute("data-value", targetVal);
+      return;
+    }
+    if(target.id=="preview-pins-unused") {
+      dragged.remove( dragged );
+      target.appendChild(dragged);
+      let targetVal = "255";
+      document.getElementById(dragged.getAttribute("data-parent")).value = targetVal;
+      dragged.innerHTML = dragged.getAttribute("data-define");
+      dragged.setAttribute("data-value", targetVal);
+      document.getElementById("preview").style.paddingLeft=document.getElementById("preview-pins-unused").offsetWidth + 20 + "px";
+      return;
+    }
+	  if(target.classList.contains("movable")) {
+	    let isEmpty = target.getElementsByClassName("preview-pin").length==0;
+	    if(!isEmpty) return;
+	    dragged.remove( dragged );
+	    let targetVal = target.id.split("-")[1];
+		  target.appendChild(dragged);
+		  document.getElementById(dragged.getAttribute("data-parent")).value = targetVal;
+		  dragged.innerHTML = dragged.getAttribute("data-define") + "&nbsp;["+targetVal+"]";
+		  dragged.setAttribute("data-value", targetVal);
+	  }
+	  if(target.classList.contains("preview-pin") && target.parentNode.classList.contains("movable") && target.parentNode.id!="preview-pins-unused"){
+	    dragged.remove( dragged );
+	    let targetVal = target.getAttribute("data-value");
+	    let draggedVal = dragged.getAttribute("data-value");
+	    target.parentNode.appendChild(dragged);
+	    document.getElementById(dragged.getAttribute("data-parent")).value = targetVal;
+	    dragged.innerHTML = dragged.getAttribute("data-define") + "&nbsp;["+targetVal+"]";
+	    dragged.setAttribute("data-value", targetVal);
+	    node.appendChild(target);
+	    document.getElementById(target.getAttribute("data-parent")).value = draggedVal;
+	    target.innerHTML = target.getAttribute("data-define") + (target.parentNode.id=="preview-pins-unused"?"":"&nbsp;["+draggedVal+"]");
+	    target.setAttribute("data-value", draggedVal);
+	  }
+	  document.getElementById("preview").style.paddingLeft=document.getElementById("preview-pins-unused").offsetWidth + 20 + "px";
+  });
+</script>
+
+</html>
