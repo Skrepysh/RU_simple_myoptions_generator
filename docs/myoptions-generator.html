@@ -2,7 +2,7 @@
 <html>
 <head>
   <script>
-    var GVERSION="v0.4.8 RU";
+    var GVERSION="v0.7.0";
     var debug = false;
   </script>
   <meta charset="UTF-8">
@@ -156,18 +156,43 @@
       background-image: linear-gradient(#000, #0b0b0b);
       position: relative;
     }
-    section .title {
+    section .title, #preview-pins-unused .title {
       width: auto;
       margin-top: -34px;
       padding: 4px 0 20px 0;
       text-align: center;
     }
-    section .title span {
+    section .title span, #preview-pins-unused .title span {
       padding: 4px 8px;
       background: #000;
       font-weight: bold;
       font-size: 18px;
       text-transform: uppercase;
+    }
+    section .help {
+      position: absolute;
+      background-color: #000;
+      background-position: center center;
+      background-repeat: no-repeat;
+      border: #555 2px solid;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      right: 12px;
+      top: -16px;
+      cursor: pointer;
+      line-height: 24px;
+      color: #555;
+      font-weight: bold;
+      text-align: center;
+      font-size: 18px;
+    }
+    section .help:hover {
+      background-color: #555;
+      color: #000;
+    }
+    section .help:active {
+      top: -15px;
     }
     #info-content {
       display: flex;
@@ -302,19 +327,19 @@
       padding: 4px 6px;
     }
     .inputwrap:has(> .conflict):after{
-      content: "КОНФЛИКТ";
+      content: "conflict";
     }
     .inputwrap:has(> .invalid):after{
-      content: "НЕКК. ЗНАЧЕНИЕ";
+      content: "out of range";
     }
     .inputwrap:has(> .vspi):after{
-      content: "уже используется VSPI";
+      content: "used in VSPI";
     }
     .inputwrap:has(> .hspi):after{
-      content: "уже используется HSPI";
+      content: "used in HSPI";
     }
     .inputwrap:has(> .wrover):after{
-      content: "уже используется WROVER";
+      content: "used in WROVER";
     }
     .inputwrap:has(> .textinput:focus) .inputtitle {
       color: #fff;
@@ -328,7 +353,7 @@
       justify-content: space-evenly;
     }
     #submit {
-      max-width: 570px;
+      max-width: 680px;
       margin: 0 auto;
     }
     .button {
@@ -341,7 +366,7 @@
       cursor: pointer;
       text-align: center;
       min-width: 140px;
-      margin-left: 20px;
+      margin-left: 0px;
       text-transform: uppercase;
       color: #e3d25f;
       background: #272727;
@@ -358,6 +383,9 @@
     .hlbutton {
       background: #e3d25f;
       color: #000;
+    }
+    .button#docopy {
+      min-width: 41px;
     }
     .encoder-set {
       margin-top: 30px;
@@ -383,6 +411,7 @@
       border-radius: 16px;
       box-shadow: 0 15px 15px #000;
       background: #000;
+      padding-left: 230px;
     }
     #preview .button {
       position: absolute;
@@ -443,6 +472,10 @@
       font-size: 15px;
       margin: 0 2px;
       padding: 0 8px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
     }
     .preview-pin-pwr { border-color: #f00; background: rgba(255,0,0,0.7); color: #000; }
     .preview-pin-gnd { border-color: #313131; background: #313131; color: #b5b5b5; }
@@ -456,6 +489,137 @@
     .preview-yellow  { border-color: #e3d25f; background: #b5a84c; color: #000; }
     .preview-bgreen  { border-color: #4ab3ac; background: #3b8f89; color: #000; }
     .preview-pink    { border-color: #de1670; background: #b11159; color: #000; }
+    #preview-pins li .preview-pin {
+      cursor: not-allowed;
+    }
+    #preview-pins li.movable .preview-pin, #preview-pins-unused .preview-pin {
+      padding-left: 16px;
+      background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAOAQMAAADZk5RYAAAABlBMVEUAAAD///+l2Z/dAAAAAnRSTlMAP8D14AUAAAAMSURBVAjXY5iEGwIAb+QH/Z/KV8wAAAAASUVORK5CYII=');
+      background-position: 4px center;
+      background-repeat: no-repeat;
+      cursor: move;
+    }
+    #preview-pins-unused {
+      position:absolute;
+      z-index: 102;
+      height:auto;
+      bottom:0;
+      top:0;
+      left:0;
+      padding: 20px 10px;
+      margin: 30px 0 30px 20px;
+      box-sizing: border-box;
+      border: #777 1px dashed;
+      border-radius: 10px;
+      opacity: 0.8;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      background-image: linear-gradient(#000, #0b0b0b);
+    }
+    #preview-pins-unused .title {
+      width: 100%;
+    }
+    #preview-pins-unused .preview-pin {
+      margin-bottom: 8px;
+    }
+    #helpwrapper {
+      position: fixed;
+      top: 0; right: 0; bottom: 0; left: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 105;
+      display: flex;
+      align-items: center;
+    }
+    #helpborder {
+      max-width: 960px;
+      margin: 40px auto;
+      padding: 20px 30px;
+      border: #333 3px solid;
+      border-radius: 16px;
+      box-sizing: border-box;
+      background-image: linear-gradient(#000, #0b0b0b);
+      display: flex;
+      flex-direction: column;
+      max-height: 80%;
+    }
+    #helptitle {
+      color: #e3d25f;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 22px;
+      text-align: center;
+      border-bottom: #444 2px dotted;
+      padding-bottom: 20px;
+    }
+    #helpcontent {
+      flex: 1;
+      padding: 20px 15px;
+      box-sizing: border-box;
+      min-height: 160px;
+      line-height: 22px;
+      overflow: auto;
+      scrollbar-color: #e3d25f #000;
+      scrollbar-width: thin;
+      overscroll-behavior: contain;
+    }
+    #helpcontent::-webkit-scrollbar {
+      width: 5px;
+      height: 8px;
+      background-color: #000;
+    }
+    #helpcontent::-webkit-scrollbar-thumb {
+      background: #e3d25f;
+    }
+    #helpcontent a {
+      font-weight: normal;
+    }
+    #helpcontent p, code {
+      margin: 0 0 5px 0;
+      padding-bottom: 10px;
+      border-bottom: #333 1px dotted;
+      display: inline-block;
+      width: 100%;
+      font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace, setif;
+      font-size: 16px;
+      color: #fff;
+    }
+    #helpcontent p.title{
+      margin: 15px 0 -10px 0;
+      padding-bottom: 0px;
+      border: 0;
+      font-weight: bold;
+    }
+    code {
+      background: #222;
+      color: #777;
+      box-sizing: border-box;
+      padding: 0px 20px;
+      margin: 0;
+      white-space: pre;
+      display: block;
+      overflow: auto;
+      margin-bottom: 10px;
+      border-left: #444 3px solid;
+      scrollbar-color: #777 #222;
+      scrollbar-width: thin;
+      overscroll-behavior: contain;
+    }
+    code::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+      background-color: #222;
+    }
+    code::-webkit-scrollbar-thumb {
+      background: #777;
+    }
+    code span {
+      color: #e3d25f;
+    }
+    #helpfooter {
+      border-top: #444 2px dotted;
+      padding-top: 20px;
+    }
     @media screen and (max-width: 680px) {
       #content, #preview { zoom: 0.8; }
     }
@@ -476,23 +640,26 @@
 <body>
   <div id="preview" class="hidden">
     <div id="preview-pins">
+      <div id="preview-pins-unused" class="movable">
+        <div class="title"><span>LOST PINS</span></div>
+      </div>
       <div id="preview-pins-left">
         <ul>
           <li id="pwr-3v3"><div class="preview-pin preview-pin-pwr preview-pin-static">3v3</div></li>
-          <li id="gpio-en"></li>
-          <li id="gpio-36"></li>
-          <li id="gpio-39"></li>
-          <li id="gpio-34"></li>
-          <li id="gpio-35"></li>
-          <li id="gpio-32"></li>
-          <li id="gpio-33"></li>
-          <li id="gpio-25"></li>
-          <li id="gpio-26"></li>
-          <li id="gpio-27"></li>
-          <li id="gpio-14"></li>
-          <li id="gpio-12"></li>
+          <li id="gpio-en" class="movable movable-rst"></li>
+          <li id="gpio-36" class="movable"></li>
+          <li id="gpio-39" class="movable"></li>
+          <li id="gpio-34" class="movable"></li>
+          <li id="gpio-35" class="movable"></li>
+          <li id="gpio-32" class="movable"></li>
+          <li id="gpio-33" class="movable"></li>
+          <li id="gpio-25" class="movable"></li>
+          <li id="gpio-26" class="movable"></li>
+          <li id="gpio-27" class="movable"></li>
+          <li id="gpio-14" class="movable movable-dynamic"></li>
+          <li id="gpio-12" class="movable movable-dynamic"></li>
           <li id="pwr-gn1"><div class="preview-pin preview-pin-gnd preview-pin-static">GND</div></li>
-          <li id="gpio-13"></li>
+          <li id="gpio-13" class="movable movable-dynamic"></li>
           <li id="gpio-9"><div class="preview-pin preview-pin-dis preview-pin-static">X</div></li>
           <li id="gpio-10"><div class="preview-pin preview-pin-dis preview-pin-static">X</div></li>
           <li id="gpio-11"><div class="preview-pin preview-pin-dis preview-pin-static">X</div></li>
@@ -503,21 +670,21 @@
       <div id="preview-pins-right">
         <ul>
           <li id="pwr-gn2"><div class="preview-pin preview-pin-gnd preview-pin-static">GND</div></li>
-          <li id="gpio-23"></li>
-          <li id="gpio-22"></li>
+          <li id="gpio-23" class="movable movable-dynamic"></li>
+          <li id="gpio-22" class="movable"></li>
           <li id="gpio-tx"><div class="preview-pin preview-pin-dis preview-pin-static">X</div></li>
           <li id="gpio-rx"><div class="preview-pin preview-pin-dis preview-pin-static">X</div></li>
-          <li id="gpio-21"></li>
+          <li id="gpio-21" class="movable"></li>
           <li id="pwr-gn3"><div class="preview-pin preview-pin-gnd preview-pin-static">GND</div></li>
-          <li id="gpio-19"></li>
-          <li id="gpio-18"></li>
-          <li id="gpio-5"></li>
-          <li id="gpio-17"></li>
-          <li id="gpio-16"></li>
-          <li id="gpio-4"></li>
-          <li id="gpio-0"></li>
-          <li id="gpio-2"></li>
-          <li id="gpio-15"></li>
+          <li id="gpio-19" class="movable movable-dynamic"></li>
+          <li id="gpio-18" class="movable movable-dynamic"></li>
+          <li id="gpio-5" class="movable"></li>
+          <li id="gpio-17" class="movable movable-dynamic"></li>
+          <li id="gpio-16" class="movable movable-dynamic"></li>
+          <li id="gpio-4" class="movable"></li>
+          <li id="gpio-0" class="movable"></li>
+          <li id="gpio-2" class="movable"></li>
+          <li id="gpio-15" class="movable"></li>
           <li id="gpio-8"><div class="preview-pin preview-pin-dis preview-pin-static">X</div></li>
           <li id="gpio-7"><div class="preview-pin preview-pin-dis preview-pin-static">X</div></li>
           <li id="gpio-6"><div class="preview-pin preview-pin-dis preview-pin-static">X</div></li>
@@ -532,7 +699,7 @@
     <h2 id="slogan">feel difference</h2>
     <!-- INFO -->
     <section id="info">
-      <div class="title"><span>ВАЖНО!</span></div>
+      <div class="title"><span>Важно</span></div>
       <div id="info-content">
         <ul>
           <li>Не используйте 16-17 пины на модуле WROVER.</li>
@@ -543,7 +710,7 @@
           <li>Не используйте нулевой пин без крайней необходимости.</li>
         </ul>
         <ul>
-          <li>Пожалуйста, ознакомьтесь со следующими статьями:
+          Пожалуйста, ознакомьтесь со следующими статьями:
 	  <li><a href="https://randomnerdtutorials.com/esp32-pinout-reference-gpios/" target="_blank">https://randomnerdtutorials.com/esp32-pinout-reference-gpios/</a></li>
           <li><a href="https://randomnerdtutorials.com/esp32-spi-communication-arduino/" target="_blank">https://randomnerdtutorials.com/esp32-spi-communication-arduino/</a></li>
           <li><a href="https://github.com/e2002/yoradio#hardware-setup" target="_blank">https://github.com/e2002/yoradio#hardware-setup</a></li>
@@ -554,7 +721,7 @@
     <!-- MODULE -->
     <hr class="double" />
     <section id="module">
-      <div class="title"><span>Тип ESP32</span></div>
+      <div class="title"><span>тип esp32</span></div><div class="help" data-targetid="help-module" data-title="esp32 module">?</div>
       <div class="evenly">
         <label class="dsplabel"><input type="radio" class="radio espmodule rbox" name="espmodule" id="r71" data-target="wroom" checked /><span class="checkmark"></span>WROOM</label>
         <label class="dsplabel"><input type="radio" class="radio espmodule rbox" name="espmodule" id="r72" data-target="wrover" /><span class="checkmark"></span>WROVER</label>
@@ -563,9 +730,9 @@
     <!-- SETUP -->
     <hr class="double" />
     <section id="setup">
-      <div class="title"><span>Мне нужно настроить</span></div>
+      <div class="title"><span>мне нужно настроить</span></div><div class="help" data-targetid="help-setup" data-title="setup section">?</div>
       <div class="scontent scontent-setup evenly" id="scontent-setup1">
-        <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-setup rbox" id="r1" data-target="setup-language"/><span class="checkmark box"></span>ЯЗЫК</label>
+        <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-setup rbox" id="r1" data-target="setup-language"/><span class="checkmark box"></span>язык</label>
         <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-setup rbox" id="r2" data-target="setup-display"/><span class="checkmark box"></span>ДИСПЛЕЙ</label>
         <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-setup rbox" id="r3" data-target="setup-buttons"/><span class="checkmark box"></span>КНОПКИ</label>
         <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-setup rbox" id="r4" data-target="setup-encoders"/><span class="checkmark box"></span>ЭНКОДЕРЫ</label>
@@ -573,15 +740,15 @@
       <hr />
       <div class="scontent scontent-setup evenly" id="scontent-setup2">
         <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-setup rbox" id="r5" data-target="setup-touchscreen"/><span class="checkmark box"></span>ТАЧСКРИН</label>
-        <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-setup rbox" id="r6" data-target="setup-sdcard"/><span class="checkmark box"></span>SD КАРТА</label>
-        <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-setup rbox" id="r7" data-target="setup-etc"/><span class="checkmark box"></span>ИК, LED, ПРОЧЕЕ.</label>
+        <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-setup rbox" id="r6" data-target="setup-sdcard"/><span class="checkmark box"></span>SD карта</label>
+        <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-setup rbox" id="r7" data-target="setup-etc"/><span class="checkmark box"></span>ИК, Светодиод, Прочее.</label>
       </div>
     </section><!-- SETUP -->
     <!-- LANGUAGE -->
     <div id="setup-language" class="hidden">
       <hr class="double" />
       <section id="language">
-        <div class="title"><span>ЯЗЫК</span></div>
+        <div class="title"><span>Язык</span></div><div class="help" data-targetid="help-language" data-title="language">?</div>
         <div class="scontent scontent-language evenly forexport" id="scontent-language" data-define="L10N_LANGUAGE" data-export="RADIO">
           <label class="dsplabel"><input type="radio" class="radio rbox" name="rlanguage" id="r8" data-type="default" checked /><span class="checkmark"></span>EN</label>
           <label class="dsplabel"><input type="radio" class="radio rbox" name="rlanguage" id="r9" data-type="RU" /><span class="checkmark"></span>RU</label>
@@ -592,51 +759,51 @@
     <div id="setup-display" class="hidden">
       <hr class="double" />
       <section id="display">
-        <div class="title"><span>ДИСПЛЕЙ</span></div>
+        <div class="title"><span>дисплей</span></div><div class="help" data-targetid="help-display" data-title="displays">?</div>
         <div class="scontent scontent-displays forexport" id="scontent-displays" data-define="DSP_MODEL" data-export="RADIO" data-displays="true">
           <label class="dsplabel"><input type="radio" class="radio dspradio rbox" name="dspradio" id="r10" data-target="dmy" data-type="default" checked /><span class="checkmark"></span>без дисплея</label>
-          <label class="dsplabel"><input type="radio" class="radio dspradio rbox" name="dspradio" id="r11" data-target="spi" data-st="ST7735" data-type="DSP_ST7735" /><span class="checkmark"></span>ST7735</label>
-          <label class="dsplabel"><input type="radio" class="radio dspradio rbox" name="dspradio" id="r12" data-target="i2c" data-type="DSP_SSD1306" data-invert="true"/><span class="checkmark"></span>SSD1306</label>
-          <label class="dsplabel"><input type="radio" class="radio dspradio rbox" name="dspradio" id="r13" data-target="spi" data-type="DSP_NOKIA5110" /><span class="checkmark"></span>NOKIA 5110</label>
-          <label class="dsplabel"><input type="radio" class="radio dspradio rbox" name="dspradio" id="r14" data-target="spi" data-type="DSP_ST7789" /><span class="checkmark"></span>ST7789</label>
-          <label class="dsplabel"><input type="radio" class="radio dspradio rbox" name="dspradio" id="r15" data-target="i2c" data-type="DSP_SH1106" data-invert="true" /><span class="checkmark"></span>SH1106</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r11" data-target="spi" data-st="ST7735" data-type="DSP_ST7735" data-libs="Adafruit ST7735 and ST7789 Library" /><span class="checkmark"></span>ST7735</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r12" data-target="i2c" data-type="DSP_SSD1306" data-libs="Adafruit SSD1306" data-invert="true"/><span class="checkmark"></span>SSD1306</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r13" data-target="spi" data-type="DSP_NOKIA5110" data-libs="Adafruit PCD8544 Nokia 5110 LCD library" /><span class="checkmark"></span>NOKIA 5110</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r14" data-target="spi" data-type="DSP_ST7789" data-libs="Adafruit ST7735 and ST7789 Library" /><span class="checkmark"></span>ST7789</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r15" data-target="i2c" data-type="DSP_SH1106" data-libs="Adafruit SH110X" data-invert="true" /><span class="checkmark"></span>SH1106</label>
           <label class="dsplabel"><input type="radio" class="radio dspradio rbox" name="dspradio" id="r16" data-target="i2c" data-type="DSP_1602I2C" /><span class="checkmark"></span>1602 I2C</label>
-          <label class="dsplabel"><input type="radio" class="radio dspradio rbox" name="dspradio" id="r17" data-target="i2c" data-type="DSP_SSD1306x32" /><span class="checkmark"></span>SSD1306x32</label>
-          <label class="dsplabel"><input type="radio" class="radio dspradio rbox" name="dspradio" id="r18" data-target="i2c" data-type="DSP_SSD1327" data-rotate="true" /><span class="checkmark"></span>SSD1327</label>
-          <label class="dsplabel"><input type="radio" class="radio dspradio rbox" name="dspradio" id="r19" data-target="spi" data-type="DSP_ILI9341" /><span class="checkmark"></span>ILI9341</label>
-          <label class="dsplabel"><input type="radio" class="radio dspradio rbox" name="dspradio" id="r20" data-target="spi" data-type="DSP_SSD1305" data-invert="true" /><span class="checkmark"></span>SSD1305</label>
-          <label class="dsplabel"><input type="radio" class="radio dspradio rbox" name="dspradio" id="r21" data-target="i2c" data-type="DSP_SH1107" /><span class="checkmark"></span>SH1107</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r17" data-target="i2c" data-type="DSP_SSD1306x32" data-libs="Adafruit SSD1306" /><span class="checkmark"></span>SSD1306x32</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r18" data-target="i2c" data-type="DSP_SSD1327" data-libs="Adafruit SSD1327" data-rotate="true" /><span class="checkmark"></span>SSD1327</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r19" data-target="spi" data-type="DSP_ILI9341" data-libs="Adafruit ILI9341" /><span class="checkmark"></span>ILI9341</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r20" data-target="spi" data-type="DSP_SSD1305" data-libs="Adafruit SSD1305" data-invert="true" /><span class="checkmark"></span>SSD1305</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r21" data-target="i2c" data-type="DSP_SH1107" data-libs="Adafruit SH110X" /><span class="checkmark"></span>SH1107</label>
           <label class="dsplabel"><input type="radio" class="radio dspradio rbox" name="dspradio" id="r22" data-target="lcd" data-type="DSP_1602" /><span class="checkmark"></span>LCD 1602</label>
-          <label class="dsplabel"><input type="radio" class="radio dspradio rbox" name="dspradio" id="r23" data-target="spi" data-type="DSP_GC9106" /><span class="checkmark"></span>GC9106</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r23" data-target="spi" data-type="DSP_GC9106" /><span class="checkmark"></span>GC9106</label>
           <label class="dsplabel"><input type="radio" class="radio dspradio rbox" name="dspradio" id="r24" data-target="i2c" data-type="DSP_2004I2C" /><span class="checkmark"></span>2004 I2C</label>
           <label class="dsplabel"><input type="radio" class="radio dspradio rbox" name="dspradio" id="r25" data-target="lcd" data-type="DSP_2004" /><span class="checkmark"></span>LCD 2004</label>
-          <label class="dsplabel"><input type="radio" class="radio dspradio rbox" name="dspradio" id="r26" data-target="i2c" data-type="DSP_SSD1305I2C" data-invert="true" /><span class="checkmark"></span>SSD1305 I2C</label>
-          <label class="dsplabel"><input type="radio" class="radio dspradio rbox" name="dspradio" id="r27" data-target="spi" data-type="DSP_ILI9225" /><span class="checkmark"></span>ILI9225</label>
-          <label class="dsplabel"><input type="radio" class="radio dspradio rbox" name="dspradio" id="r28" data-target="spi" data-type="DSP_ST7789_240" data-rotate="true" /><span class="checkmark"></span>ST7789x240</label>
-          <label class="dsplabel"><input type="radio" class="radio dspradio rbox" name="dspradio" id="r29" data-target="spi" data-type="DSP_ST7796" /><span class="checkmark"></span>ST7796</label>
-          <label class="dsplabel"><input type="radio" class="radio dspradio rbox" name="dspradio" id="r30" data-target="spi" data-type="DSP_GC9A01A" /><span class="checkmark"></span>GC9A01A</label>
-          <label class="dsplabel"><input type="radio" class="radio dspradio rbox" name="dspradio" id="r31" data-target="spi" data-type="DSP_ILI9488" /><span class="checkmark"></span>ILI9488</label>
-          <label class="dsplabel"><input type="radio" class="radio dspradio rbox" name="dspradio" id="r32" data-target="spi" data-type="DSP_ILI9486" /><span class="checkmark"></span>ILI9486</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r26" data-target="i2c" data-type="DSP_SSD1305I2C" data-invert="true" /><span class="checkmark"></span>SSD1305 I2C</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r27" data-target="spi" data-type="DSP_ILI9225" /><span class="checkmark"></span>ILI9225</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r28" data-target="spi" data-type="DSP_ST7789_240" data-libs="Adafruit ST7735 and ST7789 Library" data-rotate="true" /><span class="checkmark"></span>ST7789x240</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r29" data-target="spi" data-type="DSP_ST7796" /><span class="checkmark"></span>ST7796</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r30" data-target="spi" data-type="DSP_GC9A01A" /><span class="checkmark"></span>GC9A01A</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r31" data-target="spi" data-type="DSP_ILI9488" /><span class="checkmark"></span>ILI9488</label>
+          <label class="dsplabel"><input type="radio" class="radio dspradio rbox libs-required adafruit" name="dspradio" id="r32" data-target="spi" data-type="DSP_ILI9486" /><span class="checkmark"></span>ILI9486</label>
         </div>
         <hr style="margin: 10px 40px 20px 40px;" />
         <div class="evenly">
           <label class="dsplabel"><input type="checkbox" class="checkbox rbox plus-nextion" name="dspbox" id="r33" /><span class="checkmark box"></span>+ NEXTION</label>
-          <label class="dsplabel hidden" id="dsp-rotate" title="Optional 90 degree rotation for square displays"><input type="checkbox" class="checkbox rbox rotate90" id="r34" name="dspbox" /><span class="checkmark box"></span>ПОВЕРНУТЬ на 90 ГРАДУСОВ&#176;</label>
-          <label class="dsplabel hidden" id="dsp-invert" title="Invert title colors for OLED displays"><input type="checkbox" class="checkbox rbox invert-title" id="r35" name="dspbox" /><span class="checkmark box"></span>ИНВЕРТИРОВАТЬ</label>
+          <label class="dsplabel hidden" id="dsp-rotate" title="Optional 90 degree rotation for square displays"><input type="checkbox" class="checkbox rbox rotate90" id="r34" name="dspbox" /><span class="checkmark box"></span>ROTATE 90&#176;</label>
+          <label class="dsplabel hidden" id="dsp-invert" title="Invert title colors for OLED displays"><input type="checkbox" class="checkbox rbox invert-title" id="r35" name="dspbox" /><span class="checkmark box"></span>INVERT TITLE</label>
         </div>
-        <div class="description"><a href="https://github.com/e2002/yoradio/wiki/Available-display-models" target="_blank">Доступные дисплеи</a></div>
+        <div class="description"><a href="https://github.com/e2002/yoradio/wiki/Available-display-models" target="_blank">Доступные модели дисплеев</a></div>
       </section>
       <section id="display-pins" class="hidden">
-        <div class="title"><span>display pins</span></div>
+        <div class="title"><span>Пины дисплея</span></div><div class="help" data-targetid="help-display-pins" data-title="display pins">?</div>
         <div class="scontent scontent-displays-pins">
           <div id="pins-7735" class="hidden">
             <h3 class="subtitle">ST7735 display type</h3>
             <div class="evenly forexport" data-define="DTYPE" data-export="RADIO">
-              <label class="dsplabel" title="1.8' дисплей. Если изображение обрезано или имеет странные пиксели сверху и слева, попроюуйте другой вариант."><input type="radio" id="r36" class="radio dspradio rbox initr-blacktab" name="initrradio" data-type="default" checked /><span class="checkmark"></span>BLACKTAB</label>
-              <label class="dsplabel" title="1.8' дисплей. Если изображение обрезано или имеет странные пиксели сверху и слева, попроюуйте другой вариант."><input type="radio" class="radio dspradio rbox" id="r37" name="initrradio" data-type="INITR_GREENTAB" /><span class="checkmark"></span>GREENTAB</label>
-              <label class="dsplabel" title="1.8' дисплей. Если изображение обрезано или имеет странные пиксели сверху и слева, попроюуйте другой вариант."><input type="radio" class="radio dspradio rbox" id="r38" name="initrradio" data-type="INITR_REDTAB" /><span class="checkmark"></span>REDTAB</label>
-              <label class="dsplabel" title="1.44' дисплей."><input type="radio" class="radio dspradio rbox" id="r39" name="initrradio" data-rotate="true" data-type="INITR_144GREENTAB" /><span class="checkmark"></span>144GREENTAB</label>
-              <label class="dsplabel" title="0.96' дисплей."><input type="radio" class="radio dspradio rbox" id="r40" name="initrradio" data-type="INITR_MINI160x80" /><span class="checkmark"></span>MINI160x80</label>
+              <label class="dsplabel" title="1.8' display. If the display is cut off or has extra 'random' pixels on the top & left, try the other option!"><input type="radio" id="r36" class="radio dspradio rbox initr-blacktab" name="initrradio" data-type="default" checked /><span class="checkmark"></span>BLACKTAB</label>
+              <label class="dsplabel" title="1.8' display. If the display is cut off or has extra 'random' pixels on the top & left, try the other option!"><input type="radio" class="radio dspradio rbox" id="r37" name="initrradio" data-type="INITR_GREENTAB" /><span class="checkmark"></span>GREENTAB</label>
+              <label class="dsplabel" title="1.8' display. If the display is cut off or has extra 'random' pixels on the top & left, try the other option!"><input type="radio" class="radio dspradio rbox" id="r38" name="initrradio" data-type="INITR_REDTAB" /><span class="checkmark"></span>REDTAB</label>
+              <label class="dsplabel" title="1.44' display."><input type="radio" class="radio dspradio rbox" id="r39" name="initrradio" data-rotate="true" data-type="INITR_144GREENTAB" /><span class="checkmark"></span>144GREENTAB</label>
+              <label class="dsplabel" title="0.96' display."><input type="radio" class="radio dspradio rbox" id="r40" name="initrradio" data-type="INITR_MINI160x80" /><span class="checkmark"></span>MINI160x80</label>
             </div>
             <hr />
           </div>
@@ -670,8 +837,8 @@
           </div>
         </div>
       </section>
-      <section id="nextion" class="hidden">
-        <div class="title"><span>пины nextion</span></div>
+      <section id="nextion" class="hidden"><div class="help" data-targetid="help-nextion" data-title="nextion pins">?</div>
+        <div class="title"><span>Пины nextion</span></div>
         <div id="pins-nextion" class="displays-pins forexport" data-export="PINS">
           <div class="inputwrap"><span class="inputtitle">RX</span><input type="text" class="textinput" id="i13" data-define="NEXTION_RX" data-color="white" value="" maxlength="3"></div>
           <div class="inputwrap"><span class="inputtitle">TX</span><input type="text" class="textinput" id="i14" data-define="NEXTION_TX" data-color="white" value="" maxlength="3"></div>
@@ -681,16 +848,16 @@
     <!-- AUDIO -->
     <hr class="double" />
     <section id="audio">
-      <div class="title"><span>аудио</span></div>
+      <div class="title"><span>Аудио</span></div><div class="help" data-targetid="help-audio" data-title="audio module">?</div>
       <div class="scontent scontent-audio forexport" id="scontent-audio" data-export="AUDIO">
-        <label class="dsplabel"><input type="radio" class="radio rbox" id="r43" name="audioradio" data-target="i2s" checked /><span class="checkmark"></span>внешний I2S</label>
+        <label class="dsplabel"><input type="radio" class="radio rbox" id="r43" name="audioradio" data-target="i2s" checked /><span class="checkmark"></span>I2S внешний</label>
         <label class="dsplabel"><input type="radio" class="radio rbox vs1053" id="r44" name="audioradio" data-target="vs"  /><span class="checkmark"></span>VS1053</label>
-        <label class="dsplabel"><input type="radio" class="radio rbox i2s-internal" id="r45" name="audioradio" data-target="int"  /><span class="checkmark"></span>Встроенный DAC</label>
-        <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-setup rbox force-mono" id="r46" data-target="PLAYER_FORCE_MONO"/><span class="checkmark box"></span>МОНО</label>
+        <label class="dsplabel"><input type="radio" class="radio rbox i2s-internal" id="r45" name="audioradio" data-target="int"  /><span class="checkmark"></span>встроенный DAC</label>
+        <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-setup rbox force-mono" id="r46" data-target="PLAYER_FORCE_MONO"/><span class="checkmark box"></span>МОНОbel>
       </div>
     </section>
     <section id="audio-pins">
-      <div class="title"><span>Пины аудио-модуля</span></div>
+      <div class="title"><span>Пины аудио-модулей</span></div><div class="help" data-targetid="help-audio-pins" data-title="audio module pins">?</div>
       <div class="scontent scontent-audio-pins">
         <div id="audio-pins-i2s" class="audio-pins forexport" data-export="PINS">
           <div class="inputwrap"><span class="inputtitle">DIN | DOUT</span><input type="text" class="textinput" id="i15" data-define="I2S_DOUT" data-color="orange" value="27" maxlength="3"></div>
@@ -719,62 +886,62 @@
     <div id="setup-buttons" class="hidden">
       <hr class="double" />
       <section id="buttons">
-        <div class="title"><span>buttons</span></div>
+        <div class="title"><span>КНОПКИ</span></div><div class="help" data-targetid="help-buttons" data-title="buttons">?</div>
         <div class="scontent scontent-buttons evenly" id="scontent-buttons">
-          <label class="dsplabel"><input type="checkbox" class="checkbox rbox control-buttons" name="buttonsuse" id="r49" /><span class="checkmark box"></span>кнопки управления</label>
+          <label class="dsplabel"><input type="checkbox" class="checkbox rbox control-buttons libs-required" name="buttonsuse" id="r49" data-libs="OneButton" /><span class="checkmark box"></span>кнопки управления</label>
           <label class="dsplabel hiddenradio hidden"><input type="radio" class="radio rbox" id="r50" name="buttonsnum" data-target="treebuttons" checked /><span class="checkmark"></span>ТРИ КНОПКИ</label>
           <label class="dsplabel hiddenradio hidden"><input type="radio" class="radio rbox five-buttons" id="r51" name="buttonsnum" data-target="fivebuttons"  /><span class="checkmark"></span>ПЯТЬ КНОПОК</label>
-          <label class="dsplabel"><input type="checkbox" class="checkbox rbox mode-button" name="buttonmode" id="r52" /><span class="checkmark box"></span>Кнопка режима</label>
+          <label class="dsplabel"><input type="checkbox" class="checkbox rbox mode-button libs-required" name="buttonmode" id="r52" data-libs="OneButton" /><span class="checkmark box"></span>КНОПКА РЕЖИМА</label>
         </div>
       </section>
       <section id="buttons-pins" class="hidden">
-        <div class="title"><span>buttons pins</span></div>
+        <div class="title"><span>Пины кнопок</span></div><div class="help" data-targetid="help-buttons-pins" data-title="buttons pins">?</div>
         <div id="pins-buttons" class="buttons-pins evenly forexport" data-export="PINS">
-          <div class="inputwrap threebuttons pinbuttons hidden"><span class="inputtitle">ПРЕД.</span><input type="text" class="textinput" id="i22" data-define="BTN_LEFT" data-color="purple" value="" maxlength="3"></div>
-          <div class="inputwrap threebuttons pinbuttons hidden"><span class="inputtitle">ПЛЕЙ</span><input type="text" class="textinput" id="i23" data-define="BTN_CENTER" data-color="purple" value="" maxlength="3"></div>
-          <div class="inputwrap threebuttons pinbuttons hidden"><span class="inputtitle">СЛЕД</span><input type="text" class="textinput" id="i24" data-define="BTN_RIGHT" data-color="purple" value="" maxlength="3"></div>
-          <div class="inputwrap fivebuttons pinbuttons hidden"><span class="inputtitle">ВВЕРЖ</span><input type="text" class="textinput" id="i25" data-define="BTN_UP" data-color="purple" value="" maxlength="3"></div>
-          <div class="inputwrap fivebuttons pinbuttons hidden"><span class="inputtitle">ВНИЗ</span><input type="text" class="textinput" id="i26" data-define="BTN_DOWN" data-color="purple" value="" maxlength="3"></div>
-          <div class="inputwrap hidden" id="modebutton"><span class="inputtitle">РЕЖИМ</span><input type="text" class="textinput" id="i27" data-define="BTN_MODE" data-color="purple" value="" maxlength="3"></div>
+          <div class="inputwrap threebuttons pinbuttons hidden"><span class="inputtitle">PREV</span><input type="text" class="textinput" id="i22" data-define="BTN_LEFT" data-color="purple" value="" maxlength="3"></div>
+          <div class="inputwrap threebuttons pinbuttons hidden"><span class="inputtitle">PLAY</span><input type="text" class="textinput" id="i23" data-define="BTN_CENTER" data-color="purple" value="" maxlength="3"></div>
+          <div class="inputwrap threebuttons pinbuttons hidden"><span class="inputtitle">NEXT</span><input type="text" class="textinput" id="i24" data-define="BTN_RIGHT" data-color="purple" value="" maxlength="3"></div>
+          <div class="inputwrap fivebuttons pinbuttons hidden"><span class="inputtitle">UP</span><input type="text" class="textinput" id="i25" data-define="BTN_UP" data-color="purple" value="" maxlength="3"></div>
+          <div class="inputwrap fivebuttons pinbuttons hidden"><span class="inputtitle">DOWN</span><input type="text" class="textinput" id="i26" data-define="BTN_DOWN" data-color="purple" value="" maxlength="3"></div>
+          <div class="inputwrap hidden" id="modebutton"><span class="inputtitle">MODE</span><input type="text" class="textinput" id="i27" data-define="BTN_MODE" data-color="purple" value="" maxlength="3"></div>
         </div>
         <hr />
-        <div class="evenly"><label class="dsplabel"><input type="checkbox" class="checkbox rbox buttonspullup" name="buttonpullup" id="r53" checked /><span class="checkmark box"></span>ВНУТРЕННИЕ ПОДТЯЖКИ</label></div>
+        <div class="evenly"><label class="dsplabel"><input type="checkbox" class="checkbox rbox buttonspullup" name="buttonpullup" id="r53" checked /><span class="checkmark box"></span>INTERNAL PULLUP</label></div>
       </section>
     </div><!-- BUTTONS -->
     <!-- ENCODERS -->
     <div id="setup-encoders" class="hidden">
       <hr class="double" />
       <section id="encoders">
-        <div class="title"><span>ЭНКОДЕРЫ</span></div>
+        <div class="title"><span>encoders</span></div><div class="help" data-targetid="help-encoders" data-title="encoders">?</div>
         <div class="scontent scontent-encoders evenly" id="scontent-encoders">
-          <label class="dsplabel"><input type="checkbox" class="checkbox encodercheckbox rbox encoder-box1" name="encoder1" id="r54" /><span class="checkmark box"></span>ЭНКОДЕР #1</label>
-          <label class="dsplabel"><input type="checkbox" class="checkbox encodercheckbox rbox encoder-box2" name="encoder2" id="r55" /><span class="checkmark box"></span>ЭНКОДЕР #2</label>
+          <label class="dsplabel"><input type="checkbox" class="checkbox encodercheckbox rbox encoder-box1" name="encoder1" id="r54" /><span class="checkmark box"></span>ENCODER #1</label>
+          <label class="dsplabel"><input type="checkbox" class="checkbox encodercheckbox rbox encoder-box2" name="encoder2" id="r55" /><span class="checkmark box"></span>ENCODER #2</label>
         </div>
       </section>
       <section id="encoders-pins" class="hidden">
-        <div class="title"><span>Пины энкодеров</span></div>
+        <div class="title"><span>Пины энкодеров</span></div><div class="help" data-targetid="help-encoders-pins" data-title="encoders pins">?</div>
         <div id="epins1" class="hidden">
-          <h3 class="subtitle">Encoder #1</h3>
+          <h3 class="subtitle">Энкодер #1</h3>
           <div class="evenly forexport" data-export="PINS">
             <div class="inputwrap"><span class="inputtitle">S1</span><input type="text" class="textinput" id="i28" data-define="ENC_BTNR" data-color="green" value="36" maxlength="3"></div>
             <div class="inputwrap"><span class="inputtitle">S2</span><input type="text" class="textinput" id="i29" data-define="ENC_BTNL" data-color="green" value="34" maxlength="3"></div>
             <div class="inputwrap"><span class="inputtitle">Key</span><input type="text" class="textinput" id="i30" data-define="ENC_BTNB" data-color="green" value="39" maxlength="3"></div>
           </div>
           <div class="encoder-set evenly forexport" data-export="SET">
-            <label class="dsplabel"><input type="checkbox" class="checkbox setitem rbox" name="enc1pullup" id="r56" data-default="true" data-define="ENC_INTERNALPULLUP" /><span class="checkmark box"></span>ВНУТРЕННИЕ ПОДТЯЖКИ</label>
+            <label class="dsplabel"><input type="checkbox" class="checkbox setitem rbox" name="enc1pullup" id="r56" data-default="true" data-define="ENC_INTERNALPULLUP" /><span class="checkmark box"></span>Внутренние пожтяжки</label>
             <label class="dsplabel"><input type="checkbox" class="checkbox setitem rbox" name="enc1half" id="r57" data-default="false" data-define="ENC_HALFQUARD" /><span class="checkmark box"></span>HALFQUARD</label>
           </div>
         </div>
         <hr id="ehr" class="hidden" />
         <div id="epins2" class="hidden">
-          <h3 class="subtitle">Encoder #2</h3>
+          <h3 class="subtitle">Энкодер #2</h3>
           <div class="evenly forexport" data-export="PINS">
             <div class="inputwrap"><span class="inputtitle">S1</span><input type="text" class="textinput" id="i31" data-define="ENC2_BTNR" data-color="lblue" value="35" maxlength="3"></div>
             <div class="inputwrap"><span class="inputtitle">S2</span><input type="text" class="textinput" id="i32" data-define="ENC2_BTNL" data-color="lblue" value="33" maxlength="3"></div>
             <div class="inputwrap"><span class="inputtitle">Key</span><input type="text" class="textinput" id="i33" data-define="ENC2_BTNB" data-color="lblue" value="32" maxlength="3"></div>
           </div>
           <div class="encoder-set evenly forexport" data-export="SET">
-            <label class="dsplabel"><input type="checkbox" class="checkbox setitem rbox" name="enc2pullup" id="r58" data-default="true" data-define="ENC2_INTERNALPULLUP" /><span class="checkmark box"></span>ВНУТРЕННИЕ ПОДТЯЖКИ</label>
+            <label class="dsplabel"><input type="checkbox" class="checkbox setitem rbox" name="enc2pullup" id="r58" data-default="true" data-define="ENC2_INTERNALPULLUP" /><span class="checkmark box"></span>Внутренние подтяжки</label>
             <label class="dsplabel"><input type="checkbox" class="checkbox setitem rbox" name="enc2half" id="r59" data-default="false" data-define="ENC2_HALFQUARD" /><span class="checkmark box"></span>HALFQUARD</label>
           </div>
         </div>
@@ -784,9 +951,9 @@
     <div id="setup-touchscreen" class="hidden">
       <hr class="double" />
       <section id="touchscreen">
-        <div class="title"><span>ТАЧСКРИН</span></div>
+        <div class="title"><span>тачскрин</span></div><div class="help" data-targetid="help-touchscreen" data-title="touchscreen">?</div>
         <div class="evenly forexport" data-define="TS_MODEL" data-export="RADIO">
-          <label class="dsplabel"><input type="radio" class="radio tsradio rbox" name="touchscreenmodel" id="r60" data-target="ts-res" data-type="TS_MODEL_XPT2046" checked /><span class="checkmark"></span>XPT2046</label>
+          <label class="dsplabel"><input type="radio" class="radio tsradio rbox touchscreen-xpt libs-required" name="touchscreenmodel" id="r60" data-target="ts-res" data-type="TS_MODEL_XPT2046" data-libs="XPT2046_Touchscreen" checked /><span class="checkmark"></span>XPT2046</label>
           <label class="dsplabel"><input type="radio" class="radio tsradio rbox" name="touchscreenmodel" id="r61" data-target="ts-cap" data-type="TS_MODEL_GT911"  /><span class="checkmark"></span>GT911</label>
         </div>
         <hr />
@@ -813,7 +980,7 @@
     <div id="setup-sdcard" class="hidden">
       <hr class="double" />
       <section id="sdcard">
-        <div class="title"><span>SD карта</span></div>
+        <div class="title"><span>sd карта</span></div><div class="help" data-targetid="help-sdcard" data-title="sd card">?</div>
         <div class="sd-pins">
           <h3 class="subtitle">SD SPI BUS</h3>
           <div class="evenly forexport" data-define="SD_HSPI" data-export="RADIO">
@@ -831,13 +998,13 @@
     <div id="setup-etc" class="hidden">
       <hr class="double" />
       <section id="etc">
-        <div class="title"><span>etc.</span></div>
+        <div class="title"><span>прочее</span></div><div class="help" data-targetid="help-etc" data-title="etc and so on">?</div>
         <div class="evenly">
-          <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-etc rbox" id="r66" data-target="etc-led"/><span class="checkmark box"></span>СВЕТОДИОД</label>
-          <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-etc rbox" id="r67" data-target="etc-ir"/><span class="checkmark box"></span>ИК ПИН</label>
+          <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-etc rbox" id="r66" data-target="etc-led"/><span class="checkmark box"></span>Светодиод</label>
+          <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-etc rbox libs-required" id="r67" data-target="etc-ir" data-libs="IRremoteESP8266" /><span class="checkmark box"></span>ИК</label>
           <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-etc rbox" id="r68" data-target="etc-mute"/><span class="checkmark box"></span>MUTE PIN</label>
           <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-etc rbox" id="r69" data-target="etc-wake"/><span class="checkmark box"></span>WAKE PIN</label>
-          <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-etc rbox" id="r70" data-target="etc-light"/><span class="checkmark box"></span>LIGHT SENSOR</label>
+          <label class="dsplabel"><input type="checkbox" class="checkbox checkbox-etc rbox" id="r70" data-target="etc-light"/><span class="checkmark box"></span>Датчик света</label>
         </div>
         <hr class="simple" />
         <div class="evenly forexport" data-export="PINS">
@@ -851,15 +1018,249 @@
     </div><!-- ETC -->
     <hr class="double" />
     <div id="submit" class="evenly">
-      <div class="button apply" onclick="window.scrollTo(0, 0); window.location.href = window.location.href.split('?')[0];">СБРОС</div>
-      <div class="button apply hlbutton" onclick="doExport();">YOOOOO!</div>
-      <div class="button apply" onclick="doPreview();">ПРЕДПРОСМОТР</div>
+      <div class="button apply" title="Reset to defaults" onclick="window.scrollTo(0, 0); window.location.href = window.location.href.split('?')[0];">Сброс</div>
+      <div class="button apply hlbutton" title="Download myoptions.h" onclick="doExport();">YOOOOOOO!</div>
+      <div class="button apply" title="Show connections" onclick="doPreview();">предпросмотр</div>
+      <div class="button apply" id="docopy" title="Copy to clipboard" onclick="doExport(true);">Копировать</div>
     </div>
     <div class="href" onclick="getLink();">>> ссылка на данную конфигурацию <<</div>
     <div id="footer"></div>
     <button onclick="topFunction()" id="topbtn" class="scrollbutton">&#8593;</button>
     <button onclick="bottomFunction()" id="bottombtn" class="scrollbutton">&#8595;</button>
-  </div>
+    <div id="helpwrapper" class="hidden">
+      <div id="helpborder">
+        <div id="helptitle"></div>
+        <div id="helpcontent">
+          <div class="helpitem hidden" id="help-module">
+            <p>Вспомогательный раздел, позволяющий запретить назначение пинов 16-17 при выборе модуля ESP32-WROVER.</p>
+            <p>Values in this section are not included in myoptions.h</p>
+          </div>
+          <div class="helpitem hidden" id="help-setup">
+            <p>Здесь вам надо указать, какое железо вы хотите подключить</p>
+            <p>Значения из этой секции не включаются в myoptions.h</p>
+          </div>
+          <div class="helpitem hidden" id="help-language">
+            <p>Язык, на котором отображается информация на дисплее.</p>
+            <p>Параметры добавляемые в myoptions.h:</p>
+            <code>
+<span>#define L10N_LANGUAGE EN</span>
+            </code>
+          </div>
+          <div class="helpitem hidden" id="help-display">
+            <p>Модель дисплея. Смотри доступные значения\описание тут:<br />
+            <a href="https://github.com/e2002/yoradio/wiki/Available-display-models" target="_blank">https://github.com/e2002/yoradio/wiki/Available-display-models</a></p>
+            <p>Параметры добавляемые в myoptions.h:</p>
+            <code>
+<span>#define DSP_MODEL         DSP_DUMMY</span>
+            </code>
+            <p>Дисплеи Nextion могут работать параллельно с другим дисплеем (или без дисплея, отдельно).</p>
+            <p>Specify the <strong>[ ]+NEXTION</strong> parameter and ask for a description below.</p>
+          </div>
+          <div class="helpitem hidden" id="help-display-pins">
+            <p>В зависимости от выбранного выше типа дисплея здесь отображаются параметры его подключения.</p>
+            <p>Если у вас есть вопросы о выборе HSPI или VSPI, ознакомьтесь с <a href="https://randomnerdtutorials.com/esp32-spi-communication-arduino/#esp32-spi-pins" target="_blank">этой </a>заметкой или установите настройки по умолчанию.</p>
+            <p>Параметры добавляемые в myoptions.h:</p>
+            <p class="title">SPI Displays</p>
+            <code>
+/*  VSPI PINS.
+    SCL(SCK, CLK) must be connected to pin 18
+    SDA(MOSI, DIN, SDI) must be connected to pin 23  */
+/*  HSPI PINS. Set DSP_HSPI to true
+    SCL(SCK, CLK) must be connected to pin 14
+    SDA(MOSI, DIN, SDI) must be connected to pin 13  */
+<span>#define DSP_HSPI        false</span>    /*  Use HSPI for display  */
+<span>#define TFT_CS          5</span>        /*  SPI CS pin  */
+<span>#define TFT_RST         -1</span>       /*  SPI RST pin */
+<span>#define TFT_DC          4</span>        /*  SPI DC/RS pin  */
+<span>#define BRIGHTNESS_PIN  255</span>      /* BRIGHTNESS Pin  */
+            </code>
+            <p class="title">I2C Displays</p>
+            <code>
+<span>#define I2C_SDA         21</span>       /*  I2C SDA pin  */
+<span>#define I2C_SCL         22</span>       /*  I2C SCL pin  */
+            </code>
+            <p class="title">LCD Displays</p>
+            <code>
+<span>#define LCD_RS          255</span>      /*  RS Pin */
+<span>#define LCD_E           255</span>      /*  E Pin  */
+<span>#define LCD_D4          255</span>      /*  D4 Pin */
+<span>#define LCD_D5          255</span>      /*  D5 Pin */
+<span>#define LCD_D6          255</span>      /*  D6 Pin */
+<span>#define LCD_D7          255</span>      /*  D7 Pin */
+            </code>
+          </div>
+          <div class="helpitem hidden" id="help-nextion">
+            <p>Если все параметры равны 255, дисплей nextion не используется.</p>
+            <p>Параметры добавляемые в myoptions.h:</p>
+            <code>
+<span>#define NEXTION_RX    255</span>        /*  Nextion RX pin  */
+<span>#define NEXTION_TX    255</span>        /*  Nextion TX pin  */
+            </code>
+          </div>
+          <div class="helpitem hidden" id="help-audio">
+            <p>Это проект работает с тремя типа аудиодекодеров: <br /><strong>внешний I2S DAC, VS1053 SPI DAC</strong> and <strong>встроеннный в ESP32 I2S DAC</strong>.</p>
+            <p>Значения из этой секции не включаются в myoptions.h</p>
+            <p>Если вам нужен МОНО звук, смотрите опцию МОНО в данной секции.</p>
+            <p>Параметры добавляемые в myoptions.h:</p>
+            <code>
+<span>#define PLAYER_FORCE_MONO    false</span>
+            </code>
+          </div>
+          <div class="helpitem hidden" id="help-audio-pins">
+            <p>В зависимости от выбранного выше типа аудиодекодера здесь отображаются параметры его подключения.</p>
+            <p>Если у вас есть вопросы о выборе HSPI или VSPI, ознакомьтесь с <a href="https://randomnerdtutorials.com/esp32-spi-communication-arduino/#esp32-spi-pins" target="_blank">этой </a>заметкой или установите настройки по умолчанию.</p>
+            <p>Parameters added to myoptions.h (default value specified):</p>
+            <p class="title">VS1053B</p>
+            <code>
+/*  VS1053 VSPI PINS.
+    VS1053 SCK must be connected to pin 18
+    VS1053 MISO must be connected to pin 19
+    VS1053 MOSI must be connected to pin 23  */
+/*  VS1053 HSPI PINS.
+    VS1053 SCK must be connected to pin 14
+    VS1053 MISO must be connected to pin 12
+    VS1053 MOSI must be connected to pin 13  */
+<span>#define VS_HSPI       false</span>  /*  Use HSPI for VS  */
+<span>#define VS1053_CS     255</span>    /*  XCS pin */
+<span>#define VS1053_DCS    25</span>     /*  XDCS pin.  */
+<span>#define VS1053_DREQ   26</span>     /*  DREQ pin.  */
+<span>#define VS1053_RST    -1</span>     /*  XRESET pin. */
+            </code>
+            <p class="title">External I2S DAC</p>
+            <code>
+<span>#define I2S_DOUT      27</span>     /*  DIN connection */
+<span>#define I2S_BCLK      26</span>     /*  BCLK Bit clock */
+<span>#define I2S_LRC       25</span>     /*  WSEL Left Right Clock */
+            </code>
+            <p class="title">Internal I2S DAC</p>
+            <code>
+<span>#define I2S_INTERNAL  false</span>  /*  If true - use esp32 internal DAC  */
+            </code>
+          </div>
+          <div class="helpitem hidden" id="help-buttons">
+            <p>Укажите какие кнопки вы хотели бы использовать. Вы можете подключить до пяти кнопок + кнопка переключения режимов.</p>
+            <p>Значения из этой секции не включаются в myoptions.h</p>
+            <p>Вы можете настроить <strong>пины кнопок</strong> в секции ниже.</p>
+          </div>
+          <div class="helpitem hidden" id="help-buttons-pins">
+            <p>Вы можете подключить до пяти кнопок + кнопка переключения режимов.</p>
+            <p>Логику работы кнопок смотрите <a href="https://github.com/e2002/yoradio/blob/main/Controls.md#buttons" target="_blank">здесь</a>.</p>
+            <p>Параметры добавляемые в myoptions.h:</p>
+            <code>
+<span>#define BTN_LEFT              255</span>    /*  VolDown, Prev */
+<span>#define BTN_CENTER            255</span>    /*  Play, Stop, Show playlist */
+<span>#define BTN_RIGHT             255</span>    /*  VolUp, Next */
+<span>#define BTN_UP                255</span>    /*  Prev, Move Up */
+<span>#define BTN_DOWN              255</span>    /*  Next, Move Down */
+<span>#define BTN_INTERNALPULLUP    true</span>   /*  Enable the weak pull up resistors */
+
+<span>#define BTN_MODE              255</span>    /*  MODE switcher  */
+            </code>
+          </div>
+          <div class="helpitem hidden" id="help-encoders">
+            <p>Вы можете подключить 1 или 2 энкодера для управления устройством.</p>
+            <p>Логику работы энкодеров смотрите <a href="https://github.com/e2002/yoradio/blob/main/Controls.md#encoders" target="_blank">здесь</a>.</p>
+            <p>Значения из этой секции не включаются в myoptions.h</p>
+            <p>Вы можете настроить <strong>пины энкодеров</strong> в секции ниже</p>
+          </div>
+          <div class="helpitem hidden" id="help-encoders-pins">
+            <p>Параметры добавляемые в myoptions.h:</p>
+            <code>
+/*  ENCODER  */
+<span>#define ENC_BTNL              255</span>    /*  Left rotation (S2) */
+<span>#define ENC_BTNB              255</span>    /*  Encoder button (KEY) */
+<span>#define ENC_BTNR              255</span>    /*  Right rotation (S1) */
+<span>#define ENC_INTERNALPULLUP    true</span>   /*  Enable the weak pull up resistors */
+<span>#define ENC_HALFQUARD         false</span>  /*  Experiment  with it */
+
+/*  ENCODER2  */
+<span>#define ENC2_BTNL             255</span>    /*  Left rotation (S2) */
+<span>#define ENC2_BTNB             255</span>    /*  Encoder button (KEY) */
+<span>#define ENC2_BTNR             255</span>    /*  Right rotation (S1) */
+<span>#define ENC2_INTERNALPULLUP   true</span>   /*  Enable the weak pull up resistors */
+<span>#define ENC2_HALFQUARD        false</span>  /*  (true, false, 255) Experiment  with it */
+            </code>
+          </div>
+          <div class="helpitem hidden" id="help-touchscreen">
+            <p>Сейчас поддреживаются только 2 тачскрина - XPT2046 and GT911</p>
+            <p>Если у вас есть вопросы о выборе HSPI или VSPI, ознакомьтесь с <a href="https://randomnerdtutorials.com/esp32-spi-communication-arduino/#esp32-spi-pins" target="_blank">этой </a>заметкой или установите настройки по умолчанию.</p>
+            <p>Параметры добавляемые в myoptions.h:</p>
+            <p class="title">Емкостной SPI тачскрин (XPT2046)</p>
+            <code>
+/*  TS VSPI PINS.
+    CLK must be connected to pin 18
+    DIN must be connected to pin 23
+    DO  must be connected to pin 19
+    IRQ - not connected */
+/*  TS HSPI PINS.
+    CLK must be connected to pin 14
+    DIN must be connected to pin 13
+    DO  must be connected to pin 12
+    IRQ - not connected */
+<span>#define TS_CS     255</span>    /*  Touch screen CS pin  */
+<span>#define TS_HSPI   false</span>  /*  Use HSPI for Touch screen  */
+            </code>
+            <p class="title">Capacitive I2C touch screen (GT911)</p>
+            <code>
+<span>#define TS_SDA                33</span>
+<span>#define TS_SCL                32</span>
+<span>#define TS_INT                21</span>
+<span>#define TS_RST                25</span>
+            </code>
+            <p class="title">Стандартное значение для TS_MODEL</p>
+            <code>
+<span>#define TS_MODEL              TS_MODEL_UNDEFINED</span>
+            </code>
+          </div>
+          <div class="helpitem hidden" id="help-sdcard">
+            <p>Если у вас есть вопросы о выборе HSPI или VSPI, ознакомьтесь с <a href="https://randomnerdtutorials.com/esp32-spi-communication-arduino/#esp32-spi-pins" target="_blank">этой </a>заметкой или установите настройки по умолчанию.</p>
+            <p>Параметры добавляемые в myoptions.h:</p>
+            <code>
+/*  MISO is the same as D0, MOSI is the same as D1 */
+/*  SD VSPI PINS.
+    SD SCK must be connected to pin 18
+    SD MISO must be connected to pin 19
+    SD MOSI must be connected to pin 23  */
+/*  SD HSPI PINS.
+    SD SCK must be connected to pin 14
+    SD MISO must be connected to pin 12
+    SD MOSI must be connected to pin 13  */
+<span>#define SD_HSPI       false</span>
+<span>#define SDC_CS        255</span>    /* SDCARD CS pin */
+            </code>
+          </div>
+          <div class="helpitem hidden" id="help-etc">
+            <p>Настройки светодиода, ИК и прочего.</p>
+            <p>Параметры добавляемые в myoptions.h:</p>
+            <code>
+<span>#define LED_BUILTIN   255</span>    /*  Onboard LED Pin */
+<span>#define IR_PIN        255</span>    /* <a href="https://github.com/e2002/yoradio/blob/main/Controls.md#ir-receiver" target="_blank"><u>More about IR Receiver</u></a> */
+<span>#define MUTE_PIN      55</span>     /*  MUTE Pin */
+<span>#define WAKE_PIN      255</span>    /*  Wake Pin (for manual wakeup from sleep mode) */
+/* can match with BTN_XXXX, ENC_BTNB, ENC2_BTNB.  must be one of: 0,2,4,12,13,14,15,25,26,27,32,33,34,35,36,39) */
+<span>#define LIGHT_SENSOR  255</span>    /*  Light sensor  */
+            </code>
+            <p>Настройки, не обрабатываемые генератором на данный момент (вы можете добавть их вручную):</p>
+            <p>Добавляйте их только если они очень нужны!!!</p>
+            <p>Параметры добавляемые в  myoptions.h:</p>
+            <code>
+<span>#define LED_INVERT    false</span>    /*  Invert Onboard LED? */
+<span>#define MUTE_VAL    HIGH</span>   /*  Write this to MUTE_PIN when player is stopped */
+/*  Autobacklight function. See options.h for exsample  */
+<span>#define AUTOBACKLIGHT(x)  *function*</span>
+/* IR_TIMEOUT. See kTimeout description in <a href="https://github.com/crankyoldgit/IRremoteESP8266/blob/master/examples/IRrecvDumpV2/IRrecvDumpV2.ino" target="_blank">IRremoteESP8266 exsample</a>  */
+<span>#define IR_TIMEOUT      80 </span>        
+
+<span>#define BTN_LONGPRESS_LOOP_DELAY    200</span>  /*  Delay between calling DuringLongPress event */
+<span>#define BTN_CLICK_TICKS    300</span> /*  Event Timing https://github.com/mathertel/OneButton#event-timing */
+<span>#define BTN_PRESS_TICKS    500</span> /*  Event Timing https://github.com/mathertel/OneButton#event-timing */
+            </code>
+          </div>
+        </div>
+        <div id="helpfooter" class="evenly"><div class="button apply hlbutton" onclick="doneHelp();">ок</div></div>
+      </div>
+    </div>
+  </div><!--content-->
 </body>
 <script>
   var defaultValues = { "TFT_DC":       5,   "TFT_CS":        4,  "TFT_RST":    -1, "BRIGHTNESS_PIN": 255,
@@ -890,7 +1291,12 @@
     }
     let pinWrover = document.getElementsByClassName("preview-pin-wrover");
     for (var i = pinWrover.length -1; i >= 0; i--) {
+      pinWrover[i].parentNode.classList.remove("add");
       pinWrover[i].remove();
+    }
+    let movableDynamic = document.getElementsByClassName("movable-dynamic");
+    for (var i = 0; i < movableDynamic.length; i++) {
+      movableDynamic[i].classList.add("movable");
     }
     if(isWrover){
       for (var i = 16; i <= 17; i++) {
@@ -902,6 +1308,7 @@
         previewPin.classList.add("preview-pin-wrover");
         previewPin.innerHTML = "X";
         targetId.appendChild(previewPin);
+        targetId.classList.remove("movable");
       }
     }
     let spitypes = document.getElementsByClassName("spitype");
@@ -922,14 +1329,16 @@
           previewPin.classList.add("preview-pin");
           previewPin.classList.add(color);
           previewPin.innerHTML = spitypes[i].getAttribute("data-define") + spiNames[k] + "&nbsp;["+spiPins[k]+"]";
+          previewPin.id = "preview-static-"+k;
           targetId.appendChild(previewPin);
+          targetId.classList.remove("movable");
         }
       }
     }
     let textinputs = document.getElementsByClassName("textinput");
     for (var i = 0; i < textinputs.length; i++) {
       if(textinputs[i].offsetParent === null) continue;
-      if(textinputs[i].value!="" || textinputs[i].value!="255"){
+      if(textinputs[i].value!="" && textinputs[i].value!="255"){
         let targetId=document.getElementById("gpio-"+textinputs[i].value);
         if(textinputs[i].value=="-1") targetId=document.getElementById("gpio-en");
         if(targetId){
@@ -937,22 +1346,49 @@
           let previewPin = document.createElement("div");
           previewPin.classList.add("preview-pin");
           previewPin.classList.add(color);
+          previewPin.setAttribute("data-parent", textinputs[i].id);
+          previewPin.setAttribute("data-value", textinputs[i].value);
+          previewPin.setAttribute("data-define", textinputs[i].getAttribute("data-define"));
           previewPin.innerHTML = textinputs[i].getAttribute("data-define") + "&nbsp;["+textinputs[i].value+"]";
+          previewPin.id = "preview-"+i;
           targetId.appendChild(previewPin);
         }
+      }else{
+        let targetId=document.getElementById("preview-pins-unused");
+        let color = "preview-" + textinputs[i].getAttribute("data-color");
+          let previewPin = document.createElement("div");
+          previewPin.classList.add("preview-pin");
+          previewPin.classList.add(color);
+          previewPin.setAttribute("data-parent", textinputs[i].id);
+          previewPin.setAttribute("data-value", textinputs[i].value);
+          previewPin.setAttribute("data-define", textinputs[i].getAttribute("data-define"));
+          previewPin.innerHTML = textinputs[i].getAttribute("data-define");
+          previewPin.id = "preview-"+i;
+          targetId.appendChild(previewPin);
       }
     }
     document.getElementById('preview').classList.remove('hidden');
+    
+    let movable = document.getElementsByClassName("movable");
+    for (var i = 0; i < movable.length; i++) {
+      let draggable = movable[i].getElementsByClassName("preview-pin")[0];
+      if(draggable) draggable.setAttribute("draggable", true);
+    }
+    movable = document.getElementById("preview-pins-unused").getElementsByClassName("preview-pin");
+    for (var i = 0; i < movable.length; i++) {
+      movable[i].setAttribute("draggable", true);
+    }
+    document.getElementById("preview").style.paddingLeft=document.getElementById("preview-pins-unused").offsetWidth + 20 + "px";
   }
   function dontAlert(){
     document.getElementById("alert").setAttribute("class", "hidden");
     document.getElementById("alert").innerHTML = "";
     if(atimeout) clearTimeout(atimeout);
   }
-  function doAlert(atype, atext){
+  function doAlert(atype, atext, atimeout=7000){
     document.getElementById("alert").setAttribute("class", atype);
     document.getElementById("alert").innerHTML = atext;
-    atimeout = setTimeout(dontAlert, 7000);
+    atimeout = setTimeout(dontAlert, atimeout);
   }
   function saveAlert(atype, atext){
     localStorage.setItem('alert', atext);
@@ -1206,13 +1642,32 @@
       }
     }
   }
+  function initHelp(){
+    let elements = document.getElementsByClassName("help");
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].addEventListener('click', function(){
+        document.getElementById("helptitle").innerHTML = this.getAttribute("data-title");
+        let target = document.getElementById(this.getAttribute("data-targetid"));
+        if(target) target.classList.remove("hidden");
+        document.getElementById("helpwrapper").classList.remove("hidden");
+      });
+    }
+  }
+  function doneHelp(){
+    document.getElementById("helpwrapper").classList.add("hidden");
+    let items = document.getElementsByClassName("helpitem");
+    for (var i = 0; i < items.length; i++) {
+      items[i].classList.add("hidden");
+    }
+  }
   function onLoad(event) {
     document.title = document.title+" - "+GVERSION;
     let ttl = document.getElementById("pagetitle");
     ttl.innerText = document.title;
-    document.getElementById("footer").innerHTML = document.title + '<br /><a href="https://github.com/e2002/yoradio/" target="_blank">РЕПОЗИТОРИЙ ёРадио</a>';
+    document.getElementById("footer").innerHTML = document.title + '<br /><a href="https://github.com/e2002/yoradio/" target="_blank">Репозиторий проекта</a>';
     initCheckboxes();
     initTextInputs();
+    initHelp();
     loadConfigFromUrl();
     loadAlert();
   }
@@ -1254,10 +1709,9 @@
     if(debug) console.log(out);
     let newlink = window.location.href.split('?')[0]+'?'+out;
     if(doreturn) return newlink;
-    console.log("link to this configuration:");
-    console.log(newlink);
     if(window.location.href.substr(0,4)!="http" && !debug){
-      doAlert("error", "Unable to generate a link for the local version of the page.");
+      saveAlert("warning", "This is a local version of the page, the link is available only to you.");
+      window.location.href = newlink;
       return; 
     }
     navigator.clipboard.writeText(newlink).then(function() {
@@ -1283,11 +1737,41 @@
     element.click();
     document.body.removeChild(element);
   }
-  function formatExport(input){
-    let out = `#ifndef myoptions_h\n#define myoptions_h\n\n/* Generated by myoptions.h generator - ${GVERSION} */\n/* ${getLink(true)} */\n/* Put this file next to yoRadio.ino and restart Arduino IDE. */\n/* !!! Do not be alarmed, all right, the default values ​​are not included in this file !!! */\n\n${input}\n\n#endif\n`;
+  function libsRequired(){
+    let out = "";
+    let adafruit = false;
+    let lr = document.getElementsByClassName("libs-required");
+    let tsxpt = document.getElementsByClassName("touchscreen-xpt")[0];
+    /* Here goes! */
+    for (var i = 0; i < lr.length; i++) {
+      if(lr[i].offsetParent === null) continue;
+      if(!lr[i].checked) continue;
+      if(lr[i].classList.contains("adafruit") && !adafruit){
+        out += "Adafruit GFX Library with dependencies, ";
+        console.log(lr[i].getAttribute("data-type"));
+        adafruit = true;
+      }
+      let libs = lr[i].getAttribute("data-libs");
+      if(!libs) continue;
+      if(out.includes(libs)) continue;
+      out += libs + ", ";
+    }
+    if(out!="") out = "\n/* !!! Внимание !!! */\n/* Эта конфигурация требует установки дополнительных стронних библиотек, установите их черех Arduino IDE: */\n/* " + out.slice(0, -2) + " */\n\n";
+    return out; /* Pewuuu! */
+  }
+  function formatExport(input, toClipboard){
+    let out = `#ifndef myoptions_h\n#define myoptions_h\n\n/* Generated by myoptions.h generator - ${GVERSION} */\n/* ${getLink(true)} */\n/* Put this file next to yoRadio.ino and restart Arduino IDE. */\n${libsRequired()}/* !!! Do not be alarmed, all right, the default values ​​are not included in this file !!! */\n\n${input}\n\n#endif\n`;
+    if(toClipboard){
+      navigator.clipboard.writeText(out).then(function() {
+        doAlert("info", "Текст скопирован в буфер!", 2000);
+      }, function(err) {
+        doAlert("error", "Could not copy text");
+      });
+      return;
+    }
     downloadFile("myoptions.h", out);
   }
-  function doExport(){
+  function doExport(toClipboard=false){
     if(!validatePins()) {
       doAlert("error", "Error filling values");
       return;
@@ -1352,8 +1836,77 @@
       }
       /*************************************************************/
     }
-    formatExport(outstr);
+    formatExport(outstr,toClipboard);
   }
+  /* DRAGDROP */
+  let dragged;
+  let node;
+  let draggedId;
+  document.addEventListener("dragstart", ({target}) => {
+	  dragged = target;
+	  draggedId = target.id;
+	  node = target.parentNode;
+  });
+
+  document.addEventListener("dragover", (event) => {
+    event.preventDefault();
+  });
+
+  document.addEventListener("drop", ({target}) => {
+    if(target.id==draggedId) return;
+    if(target.parentNode.classList.contains("movable-rst")) {
+      dragged.remove( dragged );
+      target.parentNode.appendChild(dragged);
+      let targetVal = "-1";
+      document.getElementById(dragged.getAttribute("data-parent")).value = targetVal;
+      dragged.innerHTML = dragged.getAttribute("data-define") + "&nbsp;["+targetVal+"]";
+      dragged.setAttribute("data-value", targetVal);
+      return;
+    }
+    if(target.classList.contains("movable-rst")) {
+      dragged.remove( dragged );
+      target.appendChild(dragged);
+      let targetVal = "-1";
+      document.getElementById(dragged.getAttribute("data-parent")).value = targetVal;
+      dragged.innerHTML = dragged.getAttribute("data-define") + "&nbsp;["+targetVal+"]";
+      dragged.setAttribute("data-value", targetVal);
+      return;
+    }
+    if(target.id=="preview-pins-unused") {
+      dragged.remove( dragged );
+      target.appendChild(dragged);
+      let targetVal = "255";
+      document.getElementById(dragged.getAttribute("data-parent")).value = targetVal;
+      dragged.innerHTML = dragged.getAttribute("data-define");
+      dragged.setAttribute("data-value", targetVal);
+      document.getElementById("preview").style.paddingLeft=document.getElementById("preview-pins-unused").offsetWidth + 20 + "px";
+      return;
+    }
+	  if(target.classList.contains("movable")) {
+	    let isEmpty = target.getElementsByClassName("preview-pin").length==0;
+	    if(!isEmpty) return;
+	    dragged.remove( dragged );
+	    let targetVal = target.id.split("-")[1];
+		  target.appendChild(dragged);
+		  document.getElementById(dragged.getAttribute("data-parent")).value = targetVal;
+		  dragged.innerHTML = dragged.getAttribute("data-define") + "&nbsp;["+targetVal+"]";
+		  dragged.setAttribute("data-value", targetVal);
+	  }
+	  if(target.classList.contains("preview-pin") && target.parentNode.classList.contains("movable") && target.parentNode.id!="preview-pins-unused"){
+	    dragged.remove( dragged );
+	    let targetVal = target.getAttribute("data-value");
+	    let draggedVal = dragged.getAttribute("data-value");
+	    target.parentNode.appendChild(dragged);
+	    document.getElementById(dragged.getAttribute("data-parent")).value = targetVal;
+	    dragged.innerHTML = dragged.getAttribute("data-define") + "&nbsp;["+targetVal+"]";
+	    dragged.setAttribute("data-value", targetVal);
+	    node.appendChild(target);
+	    document.getElementById(target.getAttribute("data-parent")).value = draggedVal;
+	    target.innerHTML = target.getAttribute("data-define") + (target.parentNode.id=="preview-pins-unused"?"":"&nbsp;["+draggedVal+"]");
+	    target.setAttribute("data-value", draggedVal);
+	  }
+	  document.getElementById("preview").style.paddingLeft=document.getElementById("preview-pins-unused").offsetWidth + 20 + "px";
+  });
 </script>
 
 </html>
