@@ -905,17 +905,17 @@
           <div class="inputwrap hidden" id="modebutton"><span class="inputtitle">MODE</span><input type="text" class="textinput" id="i27" data-define="BTN_MODE" data-color="purple" value="" maxlength="3"></div>
         </div>
         <hr />
-        <div class="evenly"><label class="dsplabel"><input type="checkbox" class="checkbox rbox buttonspullup" name="buttonpullup" id="r53" checked /><span class="checkmark box"></span>INTERNAL PULLUP</label></div>
+        <div class="evenly"><label class="dsplabel"><input type="checkbox" class="checkbox rbox buttonspullup" name="buttonpullup" id="r53" checked /><span class="checkmark box"></span>Внутренние подтяжки</label></div>
       </section>
     </div><!-- BUTTONS -->
     <!-- ENCODERS -->
     <div id="setup-encoders" class="hidden">
       <hr class="double" />
       <section id="encoders">
-        <div class="title"><span>encoders</span></div><div class="help" data-targetid="help-encoders" data-title="encoders">?</div>
+        <div class="title"><span>ЭНКОДЕРЫ</span></div><div class="help" data-targetid="help-encoders" data-title="encoders">?</div>
         <div class="scontent scontent-encoders evenly" id="scontent-encoders">
-          <label class="dsplabel"><input type="checkbox" class="checkbox encodercheckbox rbox encoder-box1" name="encoder1" id="r54" /><span class="checkmark box"></span>ENCODER #1</label>
-          <label class="dsplabel"><input type="checkbox" class="checkbox encodercheckbox rbox encoder-box2" name="encoder2" id="r55" /><span class="checkmark box"></span>ENCODER #2</label>
+          <label class="dsplabel"><input type="checkbox" class="checkbox encodercheckbox rbox encoder-box1" name="encoder1" id="r54" /><span class="checkmark box"></span>ЭНКОДЕР #1</label>
+          <label class="dsplabel"><input type="checkbox" class="checkbox encodercheckbox rbox encoder-box2" name="encoder2" id="r55" /><span class="checkmark box"></span>ЭНКОДЕР #2</label>
         </div>
       </section>
       <section id="encoders-pins" class="hidden">
@@ -1286,7 +1286,7 @@
   }
   function doPreview(){
     if(!validatePins()) {
-      doAlert("error", "Error filling values");
+      doAlert("error", "Ошибочно заполнены значения");
       return;
     }
     let pinWrover = document.getElementsByClassName("preview-pin-wrover");
